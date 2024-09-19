@@ -40,7 +40,7 @@ type TsMediapipeProps = {
 };
 
 type MediapipeComponentProps = TsMediapipeProps & {
-  style: ViewStyle;
+  style?: ViewStyle;
 };
 
 const { MediaPipeNativeModule, TsMediapipeViewManager } = NativeModules;
@@ -103,7 +103,7 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
     let subscription: EmitterSubscription;
     if (Platform.OS === 'android') {
       const mediaPipeEventEmitter = new NativeEventEmitter();
-      subscription = mediaPipeEventEmitter.addListener('eventName', (e) => {
+      subscription = mediaPipeEventEmitter.addListener('onLandmark', (e) => {
         onLandmark && onLandmark(e);
       });
     }
@@ -151,4 +151,4 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
   );
 };
 
-export { TsMediapipeView, switchCamera };
+export { TsMediapipeView as RNThinksysMediapipe, switchCamera };

@@ -315,7 +315,7 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
         val reactContext = ReactContextProvider.reactApplicationContext
         reactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-          ?.emit("eventName", jsonData)
+          ?.emit("onLandmark", jsonData)
 
         fragmentCameraBinding.myOverlay.setResults(
           resultBundle.results.first(),

@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   Dimensions,
 } from 'react-native';
-import { TsMediapipeView, switchCamera } from 'react-native-thinksys-mediapipe';
+import { RNThinksysMediapipe, switchCamera } from 'react-native-thinksys-mediapipe';
 
 export default function App() {
   const onFlip = () => {
@@ -20,7 +20,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TsMediapipeView
+      <RNThinksysMediapipe
         style={styles.tsMediapipeView}
         width={Dimensions.get('window').width}
         height={300}
