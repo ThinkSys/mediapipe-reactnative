@@ -244,12 +244,15 @@ class CameraFeedService: NSObject {
     
     // MARK: - Camera Switching
     func switchCamera() {
-        guard let currentCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition) else { return }
+//        guard let currentCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition) else { return }
         
         // Get the opposite camera position
-        let oppositeCameraPosition: AVCaptureDevice.Position = cameraPosition == .back ? .front : .back
+//        let oppositeCameraPosition: AVCaptureDevice.Position = cameraPosition == .back ? .front : .back
         
-        guard let oppositeCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: oppositeCameraPosition) else { return }
+        
+        cameraPosition = cameraPosition == .back ? .front : .back
+        
+        guard let oppositeCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition) else { return }
         
         sessionQueue.async {
             self.session.beginConfiguration()
@@ -260,28 +263,28 @@ class CameraFeedService: NSObject {
             }
             
             // Add new input
-            do {
-                let videoDeviceInput = try AVCaptureDeviceInput(device: oppositeCamera)
-                if self.session.canAddInput(videoDeviceInput) {
-                    self.session.addInput(videoDeviceInput)
-                } else {
-                    print("Failed to add input")
-                    return
-                }
-            } catch {
-                print("Failed to create video device input: \(error.localizedDescription)")
-                return
-            }
+//            do {
+//                let videoDeviceInput = try AVCaptureDeviceInput(device: oppositeCamera)
+//                if self.session.canAddInput(videoDeviceInput) {
+//                    self.session.addInput(videoDeviceInput)
+//                } else {
+//                    print("Failed to add input")
+//                    return
+//                }
+//            } catch {
+//                print("Failed to create video device input: \(error.localizedDescription)")
+//                return
+//            }
+            self.addVideoDeviceInput()
             
             // Update video orientation
             self.videoPreviewLayer.connection?.videoOrientation = .portrait
             self.videoDataOutput.connection(with: .video)?.videoOrientation = .portrait
+            self.videoDataOutput.connection(with: .video)?.isVideoMirrored = self.cameraPosition == .front
             
             // Mirror the preview layer if using front camera
             self.videoPreviewLayer.connection?.automaticallyAdjustsVideoMirroring = false
-//            self.videoPreviewLayer.connection?.isVideoMirrored = oppositeCameraPosition == .front
-            
-            self.cameraPosition = oppositeCameraPosition
+            self.videoPreviewLayer.connection?.isVideoMirrored = self.cameraPosition == .front
             
             self.session.commitConfiguration()
             
