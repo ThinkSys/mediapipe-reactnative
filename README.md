@@ -36,7 +36,8 @@ npm install react-native-thinksys-mediapipe
 
 ##
 ```
-Additionally, include the files from the library's assets in your project's ios folder and for Android, place them under android/app/src/main/assets
+Additionally, include the files from the library's assets in your project's ios folder 
+and for Android, place them under android/app/src/main/assets
     
     pose_landmarker_full.task
     pose_landmarker_heavy.task
