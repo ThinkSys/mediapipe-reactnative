@@ -7,10 +7,7 @@ import {
   SafeAreaView,
   Dimensions,
 } from 'react-native';
-import {
-  TsMediapipeView,
-  switchCamera,
-} from 'react-native-thinksys-mediapipe';
+import { TsMediapipeView, switchCamera } from 'react-native-thinksys-mediapipe';
 
 export default function App() {
   const onFlip = () => {
@@ -22,36 +19,35 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        backgroundColor: 'white',
-        flex: 1,
-      }}
-    >
-        <TsMediapipeView
-          style={styles.tsMediapipeView}
-          width={Dimensions.get('window').width}
-          height={300}
-          onLandmark={handleLandmark}
-          face={true}
-          leftArm={true}
-          rightArm={true}
-          leftWrist={false}
-          rightWrist={false}
-          torso={true}
-          leftLeg={false}
-          rightLeg={false}
-          leftAnkle={false}
-          rightAnkle={false}
-        />
+    <SafeAreaView style={styles.container}>
+      <TsMediapipeView
+        style={styles.tsMediapipeView}
+        width={Dimensions.get('window').width}
+        height={300}
+        onLandmark={handleLandmark}
+        face={false}
+        leftArm={true}
+        rightArm={true}
+        leftWrist={false}
+        rightWrist={false}
+        torso={true}
+        leftLeg={false}
+        rightLeg={false}
+        leftAnkle={false}
+        rightAnkle={false}
+      />
       <TouchableOpacity onPress={onFlip} style={styles.btnView}>
-        <Text style={{ color: 'white' }}>Switch Camera</Text>
+        <Text style={styles.btnTxt}>Switch Camera</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    flex: 1,
+  },
   btnView: {
     width: 100,
     height: 60,
@@ -62,6 +58,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
   },
+  btnTxt: { color: 'white' },
   tsMediapipeView: {
     alignSelf: 'center',
   },

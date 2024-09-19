@@ -10,7 +10,10 @@ import {
   NativeModules,
   NativeEventEmitter,
   type EmitterSubscription,
+  Dimensions,
 } from 'react-native';
+
+const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
 
 const LINKING_ERROR =
   `The package 'react-native-thinksys-mediapipe' doesn't seem to be linked. Make sure: \n\n` +
@@ -21,18 +24,18 @@ const LINKING_ERROR =
 type TsMediapipeProps = {
   ref?: MutableRefObject<View | null>;
   onLandmark?: (event: any) => void;
-  face: boolean;
-  leftArm: boolean;
-  rightArm: boolean;
-  leftWrist: boolean;
-  rightWrist: boolean;
-  torso: boolean;
-  leftLeg: boolean;
-  rightLeg: boolean;
-  leftAnkle: boolean;
-  rightAnkle: boolean;
-  height: number;
-  width: number;
+  face?: boolean;
+  leftArm?: boolean;
+  rightArm?: boolean;
+  leftWrist?: boolean;
+  rightWrist?: boolean;
+  torso?: boolean;
+  leftLeg?: boolean;
+  rightLeg?: boolean;
+  leftAnkle?: boolean;
+  rightAnkle?: boolean;
+  height?: number;
+  width?: number;
   poseStarted?: number;
 };
 
@@ -43,10 +46,10 @@ type MediapipeComponentProps = TsMediapipeProps & {
 const { MediaPipeNativeModule, TsMediapipeViewManager } = NativeModules;
 
 const ComponentName =
-  Platform.OS == 'android' ? 'TsMediapipeViewManager' : 'TsMediapipeView';
+  Platform.OS === 'android' ? 'TsMediapipeViewManager' : 'TsMediapipeView';
 
 const switchCamera =
-  Platform.OS == 'android'
+  Platform.OS === 'android'
     ? MediaPipeNativeModule.switchCameraMethod
     : TsMediapipeViewManager.switchCamera;
 
@@ -65,27 +68,43 @@ const createFragment = (viewId: any) =>
   );
 
 const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
+  const {
+    onLandmark,
+    height = deviceHeight,
+    width = deviceWidth,
+    face = true,
+    rightArm = true,
+    leftArm = true,
+    leftWrist = true,
+    rightWrist = true,
+    torso = true,
+    leftLeg = true,
+    rightLeg = true,
+    leftAnkle = true,
+    rightAnkle = true,
+  } = props;
+
   const ref = useRef(null);
 
   useEffect(() => {
     const viewId = findNodeHandle(ref.current);
-    if (Platform.OS == 'android') {
+    if (Platform.OS === 'android') {
       createFragment(viewId);
     }
   }, []);
 
   const bodyLandmark = (e: any) => {
-    if (Platform.OS == 'ios' && props?.onLandmark) {
-      props?.onLandmark(e.nativeEvent);
+    if (Platform.OS === 'ios' && onLandmark) {
+      onLandmark(e.nativeEvent);
     }
   };
 
   useEffect(() => {
     let subscription: EmitterSubscription;
-    if (Platform.OS == 'android') {
+    if (Platform.OS === 'android') {
       const mediaPipeEventEmitter = new NativeEventEmitter();
       subscription = mediaPipeEventEmitter.addListener('eventName', (e) => {
-        props?.onLandmark && props?.onLandmark(e);
+        onLandmark && onLandmark(e);
       });
     }
 
@@ -99,33 +118,33 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
       style={[
         props?.style,
         {
-          height: props?.height,
-          width: props?.width,
+          height: height,
+          width: width,
         },
       ]}
     >
       <TsMediapipe
         height={
-          Platform.OS == 'android'
-            ? PixelRatio.getPixelSizeForLayoutSize(props.height)
-            : props.height
+          Platform.OS === 'android'
+            ? PixelRatio.getPixelSizeForLayoutSize(height)
+            : height
         }
         width={
-          Platform.OS == 'android'
-            ? PixelRatio.getPixelSizeForLayoutSize(props.width)
-            : props.width
+          Platform.OS === 'android'
+            ? PixelRatio.getPixelSizeForLayoutSize(width)
+            : width
         }
         onLandmark={bodyLandmark}
-        face={props.face}
-        leftArm={props.leftArm}
-        rightArm={props.rightArm}
-        leftWrist={props.leftWrist}
-        rightWrist={props.rightWrist}
-        torso={props.torso}
-        leftLeg={props.leftLeg}
-        rightLeg={props.rightLeg}
-        leftAnkle={props.leftAnkle}
-        rightAnkle={props.rightAnkle}
+        face={face}
+        leftArm={leftArm}
+        rightArm={rightArm}
+        leftWrist={leftWrist}
+        rightWrist={rightWrist}
+        torso={torso}
+        leftLeg={leftLeg}
+        rightLeg={rightLeg}
+        leftAnkle={leftAnkle}
+        rightAnkle={rightAnkle}
         ref={ref}
       />
     </View>
