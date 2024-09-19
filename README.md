@@ -38,12 +38,13 @@ npm install react-native-thinksys-mediapipe
 ```
 Additionally, include the files from the library's assets in your project's ios folder 
 and for Android, place them under android/app/src/main/assets
-    
-    pose_landmarker_full.task
-    pose_landmarker_heavy.task
-    pose_landmarker_lite.task
-    
 ```
+
+[pose_landmarker_full.task](https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/latest/pose_landmarker_full.task)
+
+[pose_landmarker_heavy.task](https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_heavy/float16/latest/pose_landmarker_heavy.task)
+
+[pose_landmarker_lite.task](https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task)
 
 ## Usage
 
