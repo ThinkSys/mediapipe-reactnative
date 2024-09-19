@@ -1,7 +1,7 @@
 {
   "name": "react-native-thinksys-mediapipe",
   "version": "0.1.0",
-  "description": "Google's MediaPipe package for React Native",
+  "description": "Thinksys MediaPipe package for React Native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
