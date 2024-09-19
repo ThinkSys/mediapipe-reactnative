@@ -36,7 +36,7 @@ npm install react-native-thinksys-mediapipe
 
 ##
 ```
-Additionally, include the files from the library's assets in your project's ios folder 
+Additionally, download these model task files and add them in your project's ios folder 
 and for Android, place them under android/app/src/main/assets
 ```
 
