@@ -1,0 +1,24 @@
+#import <React/RCTViewManager.h>
+#import "TsMediapipe-Bridging-Header.h"
+#import "React/RCTEventEmitter.h"
+
+@interface RCT_EXTERN_MODULE(TsMediapipeViewManager, RCTViewManager)
+
+RCT_EXPORT_VIEW_PROPERTY(width, NSNumber)
+RCT_EXPORT_VIEW_PROPERTY(height, NSNumber)
+
+RCT_EXPORT_VIEW_PROPERTY(onLandmark, RCTDirectEventBlock)
+
+RCT_EXTERN_METHOD(switchCamera)
+
+RCT_EXPORT_VIEW_PROPERTY(face, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(leftArm, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(rightArm, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(leftWrist, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(rightWrist, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(torso, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(leftLeg, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(rightLeg, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(leftAnkle, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(rightAnkle, BOOL)
+@end
