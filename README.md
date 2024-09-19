@@ -34,10 +34,15 @@ npm install react-native-thinksys-mediapipe
     <uses-permission android:name="android.permission.CAMERA" />
     ```
 
-Also download these file from Google's Mediapipe section and to assets folder
-pose_landmarker_full.task
-pose_landmarker_heavy.task
-pose_landmarker_lite.task
+##
+```
+Additionally, include the files from the library's assets in your project's ios folder and for Android, place them under android/app/src/main/assets
+    
+    pose_landmarker_full.task
+    pose_landmarker_heavy.task
+    pose_landmarker_lite.task
+    
+```
 
 ## Usage
 
