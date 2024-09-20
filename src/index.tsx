@@ -120,6 +120,7 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
         {
           height: height,
           width: width,
+          zIndex: 0,
         },
       ]}
     >
