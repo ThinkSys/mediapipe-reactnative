@@ -36,8 +36,8 @@ npm install react-native-thinksys-mediapipe
 
 ##
 ```
-Additionally, download these model task files and add them in your project's ios folder 
-and for Android, place them under android/app/src/main/assets
+Additionally, download these model task files and move them into the root of your Xcode project and add it to all targets.
+For Android, place them under android/app/src/main/assets (create one if doesn't exist).
 ```
 
 [pose_landmarker_full.task](https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/latest/pose_landmarker_full.task)
@@ -69,7 +69,7 @@ import { RNThinksysMediapipe } from 'react-native-thinksys-mediapipe';
     rightLeg={false}
     leftAnkle={false}
     rightAnkle={false}
-/>;
+/>
 
 ```
 
