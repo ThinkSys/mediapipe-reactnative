@@ -244,15 +244,8 @@ class CameraFeedService: NSObject {
     
     // MARK: - Camera Switching
     func switchCamera() {
-//        guard let currentCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition) else { return }
-        
-        // Get the opposite camera position
-//        let oppositeCameraPosition: AVCaptureDevice.Position = cameraPosition == .back ? .front : .back
-        
         
         cameraPosition = cameraPosition == .back ? .front : .back
-        
-        guard let oppositeCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition) else { return }
         
         sessionQueue.async {
             self.session.beginConfiguration()
@@ -262,19 +255,6 @@ class CameraFeedService: NSObject {
                 self.session.removeInput(currentInput)
             }
             
-            // Add new input
-//            do {
-//                let videoDeviceInput = try AVCaptureDeviceInput(device: oppositeCamera)
-//                if self.session.canAddInput(videoDeviceInput) {
-//                    self.session.addInput(videoDeviceInput)
-//                } else {
-//                    print("Failed to add input")
-//                    return
-//                }
-//            } catch {
-//                print("Failed to create video device input: \(error.localizedDescription)")
-//                return
-//            }
             self.addVideoDeviceInput()
             
             // Update video orientation
