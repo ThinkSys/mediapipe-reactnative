@@ -69,7 +69,11 @@ import { RNThinksysMediapipe } from 'react-native-thinksys-mediapipe';
     rightLeg={false}
     leftAnkle={false}
     rightAnkle={false}
+<<<<<<< HEAD
 />
+=======
+/>;
+>>>>>>> 3b5f4c6b99e1bb61832c38f898c78b81e44a2701
 
 ```
 
