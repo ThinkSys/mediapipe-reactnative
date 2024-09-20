@@ -45,13 +45,13 @@ type MediapipeComponentProps = TsMediapipeProps & {
 
 const { MediaPipeNativeModule, TsMediapipeViewManager } = NativeModules;
 
-const ComponentName =
-  Platform.OS === 'android' ? 'TsMediapipeViewManager' : 'TsMediapipeView';
+const isAndroid = Platform.OS === 'android';
 
-const switchCamera =
-  Platform.OS === 'android'
-    ? MediaPipeNativeModule.switchCameraMethod
-    : TsMediapipeViewManager.switchCamera;
+const ComponentName = isAndroid ? 'TsMediapipeViewManager' : 'TsMediapipeView';
+
+const switchCamera = isAndroid
+  ? MediaPipeNativeModule.switchCameraMethod
+  : TsMediapipeViewManager.switchCamera;
 
 const TsMediapipe =
   UIManager.getViewManagerConfig(ComponentName) != null
@@ -88,20 +88,20 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
 
   useEffect(() => {
     const viewId = findNodeHandle(ref.current);
-    if (Platform.OS === 'android') {
+    if (isAndroid) {
       createFragment(viewId);
     }
   }, []);
 
   const bodyLandmark = (e: any) => {
-    if (Platform.OS === 'ios' && onLandmark) {
+    if (!isAndroid && onLandmark) {
       onLandmark(e.nativeEvent);
     }
   };
 
   useEffect(() => {
     let subscription: EmitterSubscription;
-    if (Platform.OS === 'android') {
+    if (isAndroid) {
       const mediaPipeEventEmitter = new NativeEventEmitter();
       subscription = mediaPipeEventEmitter.addListener('onLandmark', (e) => {
         onLandmark && onLandmark(e);
@@ -126,15 +126,9 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
     >
       <TsMediapipe
         height={
-          Platform.OS === 'android'
-            ? PixelRatio.getPixelSizeForLayoutSize(height)
-            : height
+          isAndroid ? PixelRatio.getPixelSizeForLayoutSize(height) : height
         }
-        width={
-          Platform.OS === 'android'
-            ? PixelRatio.getPixelSizeForLayoutSize(width)
-            : width
-        }
+        width={isAndroid ? PixelRatio.getPixelSizeForLayoutSize(width) : width}
         onLandmark={bodyLandmark}
         face={face}
         leftArm={leftArm}

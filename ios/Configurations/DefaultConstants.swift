@@ -5,12 +5,12 @@ import MediaPipeTasksVision
 // MARK: Define default constants
 struct DefaultConstants {
     
-    static let lineWidth: CGFloat = 2
+    static let lineWidth: CGFloat = 4
     static let pointRadius: CGFloat = 2
     static let pointColor = UIColor.yellow
     static let pointFillColor = UIColor.red
     
-    static let lineColor = UIColor(red: 0, green: 127/255.0, blue: 139/255.0, alpha: 1)
+    static let lineColor = UIColor(red: 255.0, green: 255.0, blue: 255.0, alpha: 1)
     
     static var numPoses: Int = 1
     static var minPoseDetectionConfidence: Float = 0.5
