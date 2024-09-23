@@ -16,7 +16,7 @@ struct DefaultConstants {
     static var minPoseDetectionConfidence: Float = 0.5
     static var minPosePresenceConfidence: Float = 0.5
     static var minTrackingConfidence: Float = 0.5
-    static let model: Model = .pose_landmarker_lite
+    static let model: Model = .pose_landmarker_full
     static let delegate: PoseLandmarkerDelegate = .CPU
     
     static let HEIGHT: Int = 1280

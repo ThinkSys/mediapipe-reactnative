@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/Thinksys/mediapipe-reactnative.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
+  s.resource = "ios/Models/pose_landmarker_full.task"
   s.dependency "MediaPipeTasksVision"
 
   # Use install_modules_dependencies helper to install the dependencies if React Native version >=0.71.0.

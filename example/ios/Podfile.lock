@@ -938,7 +938,7 @@ PODS:
   - React-Mapbuffer (0.74.2):
     - glog
     - React-debug
-  - react-native-thinksys-mediapipe (0.1.0):
+  - react-native-thinksys-mediapipe (0.0.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1404,7 +1404,7 @@ SPEC CHECKSUMS:
   React-jsitracing: 0fa7f78d8fdda794667cb2e6f19c874c1cf31d7e
   React-logger: 29fa3e048f5f67fe396bc08af7606426d9bd7b5d
   React-Mapbuffer: bf56147c9775491e53122a94c423ac201417e326
-  react-native-thinksys-mediapipe: ed7799196d30b4065e9fde4f607c0a26c302c52c
+  react-native-thinksys-mediapipe: 11ea8a45520fc1726b98f46519ed2ef7ddc418a5
   React-nativeconfig: 9f223cd321823afdecf59ed00861ab2d69ee0fc1
   React-NativeModulesApple: ff7efaff7098639db5631236cfd91d60abff04c0
   React-perflogger: 32ed45d9cee02cf6639acae34251590dccd30994

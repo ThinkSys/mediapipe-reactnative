@@ -12,9 +12,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		3BE4D17A2C917D8E00E0E1AE /* pose_landmarker_lite.task in Resources */ = {isa = PBXBuildFile; fileRef = 3BE4D1772C917D8E00E0E1AE /* pose_landmarker_lite.task */; };
-		3BE4D17B2C917D8E00E0E1AE /* pose_landmarker_full.task in Resources */ = {isa = PBXBuildFile; fileRef = 3BE4D1782C917D8E00E0E1AE /* pose_landmarker_full.task */; };
-		3BE4D17C2C917D8E00E0E1AE /* pose_landmarker_heavy.task in Resources */ = {isa = PBXBuildFile; fileRef = 3BE4D1792C917D8E00E0E1AE /* pose_landmarker_heavy.task */; };
 		3F8646543F4C1E39E26FB180 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C02057D1CF84E577C04DBDDD /* PrivacyInfo.xcprivacy */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C45097B56273FEB6C0A158AD /* libPods-TsMediapipeExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CA40ED73C69C76B06E3B695 /* libPods-TsMediapipeExample.a */; };
@@ -43,9 +40,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TsMediapipeExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TsMediapipeExample/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = TsMediapipeExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		3BE4D1772C917D8E00E0E1AE /* pose_landmarker_lite.task */ = {isa = PBXFileReference; lastKnownFileType = file; path = pose_landmarker_lite.task; sourceTree = "<group>"; };
-		3BE4D1782C917D8E00E0E1AE /* pose_landmarker_full.task */ = {isa = PBXFileReference; lastKnownFileType = file; path = pose_landmarker_full.task; sourceTree = "<group>"; };
-		3BE4D1792C917D8E00E0E1AE /* pose_landmarker_heavy.task */ = {isa = PBXFileReference; lastKnownFileType = file; path = pose_landmarker_heavy.task; sourceTree = "<group>"; };
 		66978E37EAD5F725EFDABA8A /* Pods-TsMediapipeExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TsMediapipeExample.release.xcconfig"; path = "Target Support Files/Pods-TsMediapipeExample/Pods-TsMediapipeExample.release.xcconfig"; sourceTree = "<group>"; };
 		6CA40ED73C69C76B06E3B695 /* libPods-TsMediapipeExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TsMediapipeExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B86FCD94B2749CF53C0BA55 /* Pods-TsMediapipeExample-TsMediapipeExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TsMediapipeExample-TsMediapipeExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-TsMediapipeExample-TsMediapipeExampleTests/Pods-TsMediapipeExample-TsMediapipeExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -95,9 +89,6 @@
 		13B07FAE1A68108700A75B9A /* TsMediapipeExample */ = {
 			isa = PBXGroup;
 			children = (
-				3BE4D1782C917D8E00E0E1AE /* pose_landmarker_full.task */,
-				3BE4D1792C917D8E00E0E1AE /* pose_landmarker_heavy.task */,
-				3BE4D1772C917D8E00E0E1AE /* pose_landmarker_lite.task */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -257,9 +248,6 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				3BE4D17A2C917D8E00E0E1AE /* pose_landmarker_lite.task in Resources */,
-				3BE4D17B2C917D8E00E0E1AE /* pose_landmarker_full.task in Resources */,
-				3BE4D17C2C917D8E00E0E1AE /* pose_landmarker_heavy.task in Resources */,
 				3F8646543F4C1E39E26FB180 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
