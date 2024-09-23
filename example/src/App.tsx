@@ -25,16 +25,16 @@ export default function App() {
         width={Dimensions.get('window').width}
         height={300}
         onLandmark={handleLandmark}
-        face={false}
+        face={true}
         leftArm={true}
         rightArm={true}
-        leftWrist={false}
-        rightWrist={false}
+        leftWrist={true}
+        rightWrist={true}
         torso={true}
-        leftLeg={false}
-        rightLeg={false}
-        leftAnkle={false}
-        rightAnkle={false}
+        leftLeg={true}
+        rightLeg={true}
+        leftAnkle={true}
+        rightAnkle={true}
       />
       <TouchableOpacity onPress={onFlip} style={styles.btnView}>
         <Text style={styles.btnTxt}>Switch Camera</Text>

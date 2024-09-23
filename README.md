@@ -50,16 +50,16 @@ import { RNThinksysMediapipe } from 'react-native-thinksys-mediapipe';
     onLandmark={(data: any) => {
         console.log('Body Landmark Data:', data);
     }}
-    face={false}
+    face={true}
     leftArm={true}
     rightArm={true}
-    leftWrist={false}
-    rightWrist={false}
+    leftWrist={true}
+    rightWrist={true}
     torso={true}
-    leftLeg={false}
-    rightLeg={false}
-    leftAnkle={false}
-    rightAnkle={false}
+    leftLeg={true}
+    rightLeg={true}
+    leftAnkle={true}
+    rightAnkle={true}
 />
 
 ```
