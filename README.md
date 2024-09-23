@@ -36,17 +36,6 @@ npm install react-native-thinksys-mediapipe
     <uses-permission android:name="android.permission.CAMERA" />
     ```
 
-## Add model files
-```
-Additionally, download these model task files and move them into the root of your Xcode project and add it to all targets.
-For Android, place them under android/app/src/main/assets (create one if doesn't exist).
-```
-
-[pose_landmarker_full.task](https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/latest/pose_landmarker_full.task)
-
-[pose_landmarker_heavy.task](https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_heavy/float16/latest/pose_landmarker_heavy.task)
-
-[pose_landmarker_lite.task](https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task)
 
 ## Usage
 
