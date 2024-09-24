@@ -8,10 +8,6 @@ The ThinkSys Mediapipe enables pose detection for React Native apps, providing a
 
 ## Installation
 
-```sh
-yarn add react-native-thinksys-mediapipe
-```
-or
 ```
 npm install react-native-thinksys-mediapipe
 ```
@@ -25,17 +21,19 @@ npm install react-native-thinksys-mediapipe
     ```
    
 2. Run ```cd ios && pod install```
+3. Run ```npx react-native run-ios```
 
 
 ## Android setup
 
- Add these to your project's manifest.
-
+1. Add these to your project's manifest.
     ```
     <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.CAMERA" />
     ```
 
+2. Run ```npx react-native run-android```
+    
 
 ## Usage
 
