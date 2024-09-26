@@ -146,4 +146,4 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
   );
 };
 
-export { TsMediapipeView as RNThinksysMediapipe, switchCamera };
+export { TsMediapipeView as RNMediapipe, switchCamera };

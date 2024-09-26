@@ -6,14 +6,18 @@ The ThinkSys Mediapipe enables pose detection for React Native apps, providing a
 <img src="https://i.ibb.co/L1FNt92/thinksys-logo.png" height="100" alt="Thinksys" />
 </p>
 
-## Installation
+## Requirement
+* Gradle minimum SDK 24 or higher
+* iOS 13 or higher
+* Android SDK Version 26 or higher
 
+
+## Installation
 ```
 npm install react-native-thinksys-mediapipe
 ```
 
 ## iOS setup
-
 1. Add camera usage permission in Info.plist in example/ios
     ```
     <key>NSCameraUsageDescription</key>
@@ -21,28 +25,26 @@ npm install react-native-thinksys-mediapipe
     ```
    
 2. Run ```cd ios && pod install```
-3. Run ```npx react-native run-ios```
 
 
 ## Android setup
+Add these to your project's manifest.
 
-1. Add these to your project's manifest.
-    ```
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    ```
-
-2. Run ```npx react-native run-android```
-    
+```
+<uses-feature android:name="android.hardware.camera" />
+<uses-permission android:name="android.permission.CAMERA" />
+```
 
 ## Usage
-
 ```js
-import { RNThinksysMediapipe } from 'react-native-thinksys-mediapipe';
+import { RNMediapipe, switchCamera } from 'react-native-thinksys-mediapipe';
 
-// ...
 
-<RNThinksysMediapipe 
+const onFlip = () => {
+    switchCamera();
+};
+
+<RNMediapipe 
     width={400}
     height={300}
     onLandmark={(data: any) => {
@@ -59,6 +61,10 @@ import { RNThinksysMediapipe } from 'react-native-thinksys-mediapipe';
     leftAnkle={true}
     rightAnkle={true}
 />
+
+<TouchableOpacity onPress={onFlip} style={styles.btnView}>
+    <Text style={styles.btnTxt}>Switch Camera</Text>
+</TouchableOpacity>
 
 ```
 
