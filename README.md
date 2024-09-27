@@ -3,7 +3,7 @@
 The ThinkSys Mediapipe enables pose detection for React Native apps, providing a comprehensive solution for both iOS and Android developers. It offers real-time motion tracking, seamless integration, and customizable features, ideal for fitness, healthcare, and interactive applications. By combining MediaPipe's advanced capabilities with React Native's cross-platform framework, developers can easily build immersive, motion-based apps across both mobile platforms.
 
 <p align="center">
-<img src="https://i.ibb.co/L1FNt92/thinksys-logo.png" height="100" alt="Thinksys" />
+<img src="https://i.ibb.co/L1FNt92/thinksys-logo.png" height="100" alt="ThinkSys" />
 </p>
 
 ## Requirement

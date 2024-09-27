@@ -1,7 +1,7 @@
 {
   "name": "react-native-thinksys-mediapipe",
-  "version": "0.0.4",
-  "description": "Thinksys MediaPipe package for React Native",
+  "version": "0.0.5",
+  "description": "ThinkSys MediaPipe package for React Native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
@@ -41,14 +41,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Thinksys/mediapipe-reactnative.git"
+    "url": "git+https://github.com/ThinkSys/mediapipe-reactnative.git"
   },
-  "author": "Kaushiki Pandey <pandey.kaushiki@thinksys.com> (https://github.com/Thinksys)",
+  "author": "Kaushiki Pandey <pandey.kaushiki@thinksys.com> (https://github.com/ThinkSys)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Thinksys/mediapipe-reactnative/issues"
+    "url": "https://github.com/ThinkSys/mediapipe-reactnative/issues"
   },
-  "homepage": "hhttps://github.com/Thinksys/mediapipe-reactnative#readme",
+  "homepage": "https://github.com/ThinkSys/mediapipe-reactnative#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
