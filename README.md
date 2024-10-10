@@ -74,7 +74,6 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 
 ---
 
-
 ## 🔗 Links
 [![thinksys](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://thinksys.com/)
 
