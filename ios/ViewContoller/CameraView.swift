@@ -255,7 +255,6 @@ class CameraView: UIView {
             } else {
                 // User denied camera permission
                 print("Camera permission denied.")
-                // Optionally, show an alert to guide the user to the settings app
             }
         }
     }
