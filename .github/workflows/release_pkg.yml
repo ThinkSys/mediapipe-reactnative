@@ -25,8 +25,7 @@ jobs:
         with:
           node-version: 20.15.1
           registry-url: https://registry.npmjs.org/
-      - run: npm install
-            # Step 3: Bump version (patch increment using sed)
+      # Step 3: Bump version (incrementing the patch)
       - name: Bump version
         run: |
           # Extract current version
@@ -38,13 +37,17 @@ jobs:
           patch=$(echo $current_version | cut -d. -f3)
 
           # Increment the patch version
-          new_version="$major.$minor.$((patch + 0.0.1))"
+          new_patch=$((patch + 1))
+
+          # Create new version string
+          new_version="$major.$minor.$new_patch"
 
           # Update the version in package.json
-          sed -i "s/\"version\": \"$current_version\"/\"version\": \"$new_version\"/" package.json
+          jq --arg new_version "$new_version" '.version = $new_version' package.json > tmp.json && mv tmp.json package.json
           
           # Display the new version for debugging
           echo "New version is $new_version"
+      - run: npm install
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPMJS_ACCESS_TOKEN}}
