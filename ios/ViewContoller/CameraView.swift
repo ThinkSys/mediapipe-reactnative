@@ -231,8 +231,6 @@ class CameraView: UIView {
         
         cameraFeedService.updateVideoPreviewLayer(toFrame: previewView.bounds)
         UIApplication.shared.isIdleTimerDisabled = true
-        // Configure subviews (e.g., layout constraints, appearance)
-        // ...
     }
     
     @objc
