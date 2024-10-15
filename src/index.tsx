@@ -125,9 +125,7 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
       ]}
     >
       <TsMediapipe
-        height={
-          isAndroid ? PixelRatio.getPixelSizeForLayoutSize(height) : height
-        }
+        height={isAndroid ? PixelRatio.getPixelSizeForLayoutSize(height) : height}
         width={isAndroid ? PixelRatio.getPixelSizeForLayoutSize(width) : width}
         onLandmark={bodyLandmark}
         face={face}
