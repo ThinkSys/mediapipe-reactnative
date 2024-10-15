@@ -26,6 +26,7 @@ jobs:
           node-version: 20.15.1
           registry-url: https://registry.npmjs.org/
       - run: npm install
+      - run: npm version patch
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPMJS_ACCESS_TOKEN}}
