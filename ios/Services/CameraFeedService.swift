@@ -623,16 +623,14 @@ extension CameraFeedService: AVCaptureVideoDataOutputSampleBufferDelegate {
         //
         if  self.isPoseStarted {
             let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-            //    //  print("Frame timestamp: \(timestamp.seconds)")
-            //
+           
             if let lastTimestamp = lastTimestamp {
                 let elapsed = CMTimeSubtract(timestamp, lastTimestamp)
                 let seconds = CMTimeGetSeconds(elapsed)
                 
                 frameCount += 1
                 self.frameRate = Double(frameCount) / seconds
-                //   print("seconds: \(seconds)")
-                //  print("Current Frame Rate: \(frameRate)")
+         
             } else {
                 // Initial timestamp
                 lastTimestamp = timestamp
@@ -640,12 +638,7 @@ extension CameraFeedService: AVCaptureVideoDataOutputSampleBufferDelegate {
             }
             
             var currentTimeStamp =  Int(Date().timeIntervalSince1970 * 1000)
-            //
-            //      let limit = frameRate/16.5
-            //      poseCount = poseCount + 1
-            //      if (poseCount > limit){
-            //        poseCount = 0
-            //   if shouldProcessSampleBuffer(currentTimestamp: timestamp) {
+          
             let data = LandmarkData(height: imageSize.height, width: imageSize.width, frameNumber: frameCount, presentationTimeStamp: Double(timestamp.value), frameRate: self.frameRate, startTimestamp:currentTimeStamp)
             
             delegate?.didOutput(sampleBuffer: sampleBuffer, orientation: UIImage.Orientation.from(deviceOrientation:  UIDevice.current.orientation), landmarkData: data)
@@ -676,17 +669,7 @@ extension CameraFeedService: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     
     func processSampleBuffer( imageBuffer : CVImageBuffer,sampleBuffer:CMSampleBuffer, imageSize: CGSize) -> CMSampleBuffer? {
-        // Extract image buffer from sample buffer
-        //        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-        //            print("Error: Failed to get image buffer from sample buffer")
-        //            return nil
-        //        }
-        //
-        //        var dateFormatter = DateFormatter()
-        //        dateFormatter.dateFormat = "mm:ss"   // HH for 24h clock
-        
-        //        let date = Date()
-        //        let timeString = dateFormatter.string(from: date)
+      
         var timerString: String = "00:00"
         let date = Date()
         let currentTimestamp = Int(date.timeIntervalSince1970 * 1000)
@@ -698,14 +681,6 @@ extension CameraFeedService: AVCaptureVideoDataOutputSampleBufferDelegate {
         
         // Convert image buffer to CIImage
         let ciImage = CIImage(cvImageBuffer: imageBuffer)
-        
-        //      var data = compressCIImage(ciImage: ciImage11, compressionQuality: 0.3)
-        //
-        //      let ciImage = ciImageFromJPEGData(jpegData: data!)
-        
-        // Apply manipulations to the CIImage (e.g., add watermark)
-        //      let watermarkedImage = generateWatermarkImage(baseImage: image, topLeftText: "1", topRightText: "2",bottomLeftText: "3",bottomRightText: "4")
-        
         
         var timerRepStrig = "Timer "+timerString
         if (self.repCount != nil){
@@ -721,9 +696,7 @@ extension CameraFeedService: AVCaptureVideoDataOutputSampleBufferDelegate {
             counter = 0
             watermarkImage = generateWatermarkImage(imageSize: imageSize, texts: texts, logo: logo)
         }
-        //      let texts = ["Top Left", "Top Right", "Bottom Left", "Bottom Right"]
-        
-        //     // let watermarkImage = generateWatermarkImage(timeString: timeString)
+     
         let watermarkedImage = watermarkImage!.composited(over: ciImage)
         
         // Render the modified CIImage back to a pixel buffer
