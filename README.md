@@ -7,8 +7,8 @@ The ThinkSys Mediapipe enables pose detection for React Native apps, providing a
 </p>
 
 ## Requirement
-* Gradle minimum SDK 24 or higher
 * iOS 13 or higher
+* Gradle minimum SDK 24 or higher
 * Android SDK Version 26 or higher
 
 
@@ -36,35 +36,102 @@ Add these to your project's manifest.
 ```
 
 ## Usage
+
+### Basic
+
+```js
+import { RNMediapipe } from 'react-native-thinksys-mediapipe';
+
+export default function App() {
+
+    return (
+        <View>
+            <RNMediapipe 
+                width={400}
+                height={300}
+            />
+        </View>
+    )
+}
+```
+
+### Usage with body prop
+
+#### Used to show/hide any body part overlay
+#### By default, the body prop is set to true
+
+```js
+import { RNMediapipe } from 'react-native-thinksys-mediapipe';
+
+export default function App() {
+
+    return (
+        <View>
+            <RNMediapipe 
+                width={400}
+                height={300}
+                face={true}
+                leftArm={true}
+                rightArm={true}
+                leftWrist={true}
+                rightWrist={true}
+                torso={true}
+                leftLeg={true}
+                rightLeg={true}
+                leftAnkle={true}
+                rightAnkle={true}
+            />
+        </View>
+    )
+}
+```
+
+### Usage with switch camera method
+
 ```js
 import { RNMediapipe, switchCamera } from 'react-native-thinksys-mediapipe';
 
+export default function App() {
 
-const onFlip = () => {
-    switchCamera();
-};
+    const onFlip = () => {
+        switchCamera();
+    };
 
-<RNMediapipe 
-    width={400}
-    height={300}
-    onLandmark={(data: any) => {
-        console.log('Body Landmark Data:', data);
-    }}
-    face={true}
-    leftArm={true}
-    rightArm={true}
-    leftWrist={true}
-    rightWrist={true}
-    torso={true}
-    leftLeg={true}
-    rightLeg={true}
-    leftAnkle={true}
-    rightAnkle={true}
-/>
+    return (
+        <View>
+            <RNMediapipe 
+                width={400}
+                height={300}
+            />
 
-<TouchableOpacity onPress={onFlip} style={styles.btnView}>
-    <Text style={styles.btnTxt}>Switch Camera</Text>
-</TouchableOpacity>
+            <TouchableOpacity onPress={onFlip} style={styles.btnView}>
+                <Text style={styles.btnTxt}>Switch Camera</Text>
+            </TouchableOpacity>
+        </View>
+    )
+}
+
+```
+
+### Usage with onLandmark prop
+
+```js
+import { RNMediapipe } from 'react-native-thinksys-mediapipe';
+
+export default function App() {
+
+    return (
+        <View>
+            <RNMediapipe 
+                width={400}
+                height={300}
+                onLandmark={(data) => {
+                    console.log('Body Landmark Data:', data);
+                }}
+            />
+        </View>
+    )
+}
 
 ```
 
