@@ -35,6 +35,7 @@ Add these to your project's manifest.
 <uses-permission android:name="android.permission.CAMERA" />
 ```
 
+
 ## Usage
 
 ### Basic
