@@ -35,6 +35,24 @@ Add these to your project's manifest.
 <uses-permission android:name="android.permission.CAMERA" />
 ```
 
+## Props
+
+| Prop        | Description                                                                                     |
+|-------------|-------------------------------------------------------------------------------------------------|
+| `width`     | Sets the camera view width.                                                                      |
+| `height`    | Sets the camera view height.                                                                     |
+| `onLandmark`| Callback function to retrieve body landmark data.                                                |
+| `face`      | Toggles visibility of the face in the body model. Affects the data provided by `onLandmark`.      |
+| `leftArm`   | Toggles visibility of the left arm in the body model. Affects the data provided by `onLandmark`.  |
+| `rightArm`  | Toggles visibility of the right arm in the body model. Affects the data provided by `onLandmark`. |
+| `leftWrist` | Toggles visibility of the left wrist in the body model. Affects the data provided by `onLandmark`.|
+| `rightWrist`| Toggles visibility of the right wrist in the body model. Affects the data provided by `onLandmark`.|
+| `torso`     | Toggles visibility of the torso in the body model. Affects the data provided by `onLandmark`.     |
+| `leftLeg`   | Toggles visibility of the left leg in the body model. Affects the data provided by `onLandmark`.  |
+| `rightLeg`  | Toggles visibility of the right leg in the body model. Affects the data provided by `onLandmark`. |
+| `leftAnkle` | Toggles visibility of the left ankle in the body model. Affects the data provided by `onLandmark`.|
+| `rightAnkle`| Toggles visibility of the right ankle in the body model. Affects the data provided by `onLandmark`.|
+
 
 ## Usage
 
