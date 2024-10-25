@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-thinksys-mediapipe": ["./src/index"]
+      "@thinksys/react-native-mediapipe": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
