@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   Dimensions,
 } from 'react-native';
-import { RNMediapipe, switchCamera } from 'react-native-thinksys-mediapipe';
+import { RNMediapipe, switchCamera } from '@thinksys/react-native-mediapipe';
 
 export default function App() {
   const onFlip = () => {

@@ -16,7 +16,7 @@ import {
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
 
 const LINKING_ERROR =
-  `The package 'react-native-thinksys-mediapipe' doesn't seem to be linked. Make sure: \n\n` +
+  `The package '@thinksys/react-native-mediapipe' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';

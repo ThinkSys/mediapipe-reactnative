@@ -14,7 +14,7 @@ The ThinkSys Mediapipe enables pose detection for React Native apps, providing a
 
 ## Installation
 ```
-npm install react-native-thinksys-mediapipe
+npm install @thinksys/react-native-mediapipe
 ```
 
 ## iOS setup
@@ -59,7 +59,7 @@ Add these to your project's manifest.
 ### Basic
 
 ```js
-import { RNMediapipe } from 'react-native-thinksys-mediapipe';
+import { RNMediapipe } from '@thinksys/react-native-mediapipe';
 
 export default function App() {
 
@@ -80,7 +80,7 @@ export default function App() {
 #### By default, the body prop is set to true
 
 ```js
-import { RNMediapipe } from 'react-native-thinksys-mediapipe';
+import { RNMediapipe } from '@thinksys/react-native-mediapipe';
 
 export default function App() {
 
@@ -108,7 +108,7 @@ export default function App() {
 ### Usage with switch camera method
 
 ```js
-import { RNMediapipe, switchCamera } from 'react-native-thinksys-mediapipe';
+import { RNMediapipe, switchCamera } from '@thinksys/react-native-mediapipe';
 
 export default function App() {
 
@@ -135,7 +135,7 @@ export default function App() {
 ### Usage with onLandmark prop
 
 ```js
-import { RNMediapipe } from 'react-native-thinksys-mediapipe';
+import { RNMediapipe } from '@thinksys/react-native-mediapipe';
 
 export default function App() {
 
