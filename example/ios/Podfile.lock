@@ -1168,7 +1168,7 @@ PODS:
     - React-perflogger (= 0.74.2)
     - React-utils (= 0.74.2)
   - SocketRocket (0.7.0)
-  - ThinkSysRNMediapipe (0.0.7):
+  - ThinkSysRNMediapipe (0.0.12):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1428,7 +1428,7 @@ SPEC CHECKSUMS:
   React-utils: 4476b7fcbbd95cfd002f3e778616155241d86e31
   ReactCommon: ecad995f26e0d1e24061f60f4e5d74782f003f12
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  ThinkSysRNMediapipe: eead7a805910020a88ccaa2f51e3a7e1dd30ce8e
+  ThinkSysRNMediapipe: 4c90ffaa5ee7b34780a6e601d47b53f94e6a4d26
   Yoga: ae3c32c514802d30f687a04a6a35b348506d411f
 
 PODFILE CHECKSUM: 09c8053ade30c4e69e43544d17cc823774d9282c
