@@ -96,7 +96,8 @@ def kotlin_version = getExtOrDefault("kotlinVersion")
 dependencies {
   // For < 0.71, this will be from the local maven repo
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
-
+  implementation 'co.daily:client:0.29.0'
+  
   implementation 'com.google.code.gson:gson:2.11.0'
 
   //noinspection GradleDynamicVersion

@@ -22,6 +22,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import co.daily.model.customtrack.CustomVideoSourceSurface
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.google.gson.Gson
 import com.google.mediapipe.tasks.vision.core.RunningMode
@@ -52,10 +53,15 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
   private var imageAnalyzer: ImageAnalysis? = null
   private var camera: Camera? = null
   private var cameraProvider: ProcessCameraProvider? = null
-  private var cameraFacing = CameraSelector.LENS_FACING_FRONT
+//  private var cameraFacing = CameraSelector.LENS_FACING_FRONT
+  private var cameraFacing = CameraSelector.LENS_FACING_BACK
 
   /** Blocking ML operations are performed using this executor */
   private lateinit var backgroundExecutor: ExecutorService
+
+  fun setCustomVideoSource(source: CustomVideoSourceSurface) {
+    poseLandmarkerHelper.setCustomVideoSource(source)
+  }
 
   fun hasPermissions(context: Context) = PERMISSIONS_REQUIRED.all {
     ContextCompat.checkSelfPermission(
@@ -298,9 +304,9 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         val additionalData = mapOf(
           "height" to resultBundle.inputImageHeight,
           "width" to resultBundle.inputImageWidth,
-//          "presentationTimeStamp" to resultBundle.presentationTimeStamp,
-//          "frameNumber" to resultBundle.frameNumber,
-//          "startTimestamp" to resultBundle.startTimestamp
+          "presentationTimeStamp" to resultBundle.presentationTimeStamp,
+          "frameNumber" to resultBundle.frameNumber,
+          "startTimestamp" to resultBundle.startTimestamp
         )
 
         val swiftDict: MutableMap<String, Any> = mutableMapOf(

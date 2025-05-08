@@ -32,5 +32,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
 
+  <!-- New FrameLayout for Participant Video -->
+  <FrameLayout
+      android:id="@+id/participant_overlay_container"
+      android:layout_width="200dp"
+      android:layout_height="200dp"
+      android:visibility="gone"/>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

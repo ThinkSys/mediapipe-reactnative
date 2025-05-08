@@ -1,12 +1,16 @@
 package com.tsmediapipe
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.os.Handler
+import android.os.HandlerThread
 import android.os.SystemClock
 import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.camera.core.ImageProxy
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.mediapipe.framework.image.BitmapImageBuilder
 import com.google.mediapipe.framework.image.MPImage
 import com.google.mediapipe.tasks.core.BaseOptions
@@ -14,6 +18,9 @@ import com.google.mediapipe.tasks.core.Delegate
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker
 import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarkerResult
+import java.io.ByteArrayOutputStream
+import co.daily.model.customtrack.CustomVideoSourceSurface
+import java.lang.reflect.Field
 
 class PoseLandmarkerHelper(
   var minPoseDetectionConfidence: Float = DEFAULT_POSE_DETECTION_CONFIDENCE,
@@ -31,6 +38,9 @@ class PoseLandmarkerHelper(
   // If the Pose Landmarker will not change, a lazy val would be preferable.
   private var poseLandmarker: PoseLandmarker? = null
 
+  private var referenceCount = 0
+  private var timestamp: Long = 0
+
   init {
     setupPoseLandmarker()
   }
@@ -38,6 +48,8 @@ class PoseLandmarkerHelper(
   fun clearPoseLandmarker() {
     poseLandmarker?.close()
     poseLandmarker = null
+    referenceCount = 0
+    timestamp = 0
   }
 
   // Return running status of PoseLandmarkerHelper
@@ -133,6 +145,9 @@ class PoseLandmarkerHelper(
     imageProxy: ImageProxy,
     isFrontCamera: Boolean
   ) {
+    // Get timestamp Value
+    timestamp = System.currentTimeMillis() - SystemClock.elapsedRealtime() + (imageProxy.imageInfo.timestamp / 1_000_000)
+
     if (runningMode != RunningMode.LIVE_STREAM) {
       throw IllegalArgumentException(
         "Attempting to call detectLiveStream" +
@@ -171,10 +186,43 @@ class PoseLandmarkerHelper(
       matrix, true
     )
 
+    updateCustomVideoTrack(rotatedBitmap)
+
     // Convert the input Bitmap object to an MPImage object to run inference
     val mpImage = BitmapImageBuilder(rotatedBitmap).build()
 
     detectAsync(mpImage, frameTime)
+  }
+
+  private val handlerThread = HandlerThread("CustomVideoTrackThread").apply { start() }
+  private val handler = Handler(handlerThread.looper)
+  private var customVideoSource: CustomVideoSourceSurface? = null
+
+  fun setCustomVideoSource(source: CustomVideoSourceSurface) {
+    this.customVideoSource = source
+  }
+
+  private fun updateCustomVideoTrack(bitmap: Bitmap) {
+    handler.removeCallbacksAndMessages(null)
+
+    handler.post {
+      try {
+        customVideoSource?.let { source ->
+          // Use source to draw on the canvas.
+          val surface = source.surfaceOrNull
+          if (surface == null || !surface.isValid) {
+            Log.e("Surface", "Surface is null or invalid")
+            return@post
+          }
+
+          val canvas = surface.lockHardwareCanvas()
+          canvas.drawBitmap(bitmap, 0f, 0f, null)
+          surface.unlockCanvasAndPost(canvas)
+        }
+      } catch (e: Exception) {
+        Log.e("Surface", "Error drawing bitmap: ${e.message}")
+      }
+    }
   }
 
   // Run pose landmark using MediaPipe Pose Landmarker API
@@ -192,13 +240,18 @@ class PoseLandmarkerHelper(
   ) {
     val finishTimeMs = SystemClock.uptimeMillis()
     val inferenceTime = finishTimeMs - result.timestampMs()
+    val startTimestamp = System.currentTimeMillis()
+    referenceCount++
 
     poseLandmarkerHelperListener?.onResults(
       ResultBundle(
         listOf(result),
         inferenceTime,
         input.height,
-        input.width
+        input.width,
+        timestamp,
+        referenceCount,
+        startTimestamp
       )
     )
   }
@@ -232,6 +285,9 @@ class PoseLandmarkerHelper(
     val inferenceTime: Long,
     val inputImageHeight: Int,
     val inputImageWidth: Int,
+    val presentationTimeStamp: Long,
+    val frameNumber: Int,
+    val startTimestamp: Long
   )
 
   interface LandmarkerListener {
