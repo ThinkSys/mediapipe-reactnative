@@ -4,10 +4,12 @@ import React
 @objc(TsMediapipeViewManager)
 class TsMediapipeViewManager: RCTViewManager {
     
-    let cameraView = CameraView()
+    private var cameraView: CameraView?
     
     override func view() -> (UIView) {
-        return cameraView
+        let view = CameraView()
+        cameraView = view
+        return view
     }
     
     @objc override static func requiresMainQueueSetup() -> Bool {
@@ -15,7 +17,7 @@ class TsMediapipeViewManager: RCTViewManager {
     }
     
     @objc func switchCamera() {
-        cameraView.switchCamera()
+        cameraView?.switchCamera()
     }
     
     

@@ -188,8 +188,29 @@ class CameraView: UIView {
             overlayView.bottomAnchor.constraint(equalTo: previewView.bottomAnchor)
         ])
     }
-    
+    private func teardownUI() {
+        if previewView != nil {
+            cameraFeedService.stopSession()
+            previewView.removeFromSuperview()
+            previewView = nil
+        }
+        if overlayView != nil {
+            overlayView.clear()
+            overlayView.removeFromSuperview()
+            overlayView = nil
+        }
+        if cameraUnavailableLabel != nil {
+            cameraUnavailableLabel.removeFromSuperview()
+            cameraUnavailableLabel = nil
+        }
+        if resumeButton != nil {
+            resumeButton.removeFromSuperview()
+            resumeButton = nil
+        }
+    }
+
     private func setupUI() {
+        teardownUI()
         requestCameraPermission()
         // Instantiate and add subviews
         previewView = UIView()
@@ -246,7 +267,11 @@ class CameraView: UIView {
     }
     
     override func willMove(toSuperview newSuperview: UIView?) {
-        if newSuperview == nil { UIApplication.shared.isIdleTimerDisabled = false} }
+        if newSuperview == nil {
+            UIApplication.shared.isIdleTimerDisabled = false
+            teardownUI()
+        }
+    } }
     func requestCameraPermission() {
         AVCaptureDevice.requestAccess(for: .video) { granted in
             if granted {
