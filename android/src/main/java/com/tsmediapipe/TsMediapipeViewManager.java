@@ -148,15 +148,24 @@ public class TsMediapipeViewManager extends ViewGroupManager<FrameLayout> {
    * Replace your React Native view with a custom fragment
    */
   public void createFragment(FrameLayout root, int reactNativeViewId) {
-    ViewGroup parentView = (ViewGroup) root.findViewById(reactNativeViewId);//reactNativeViewId
-    setupLayout(parentView);
+    // Ensure the native container view has a valid ID to host the Fragment
+    root.setId(reactNativeViewId);
+    setupLayout(root);
 
     final CameraFragment myFragment = new CameraFragment();
     FragmentActivity activity = (FragmentActivity) reactContext.getCurrentActivity();
-    activity.getSupportFragmentManager()
-      .beginTransaction()
-      .replace(reactNativeViewId, myFragment, String.valueOf(reactNativeViewId))
-      .commit();
+    if (activity == null) {
+      return;
+    }
+    activity.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        activity.getSupportFragmentManager()
+          .beginTransaction()
+          .replace(reactNativeViewId, myFragment, String.valueOf(reactNativeViewId))
+          .commitAllowingStateLoss();
+      }
+    });
   }
 
   public void setupLayout(View view) {

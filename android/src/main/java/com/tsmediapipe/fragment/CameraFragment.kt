@@ -167,12 +167,15 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     // Initialize our background executor
     backgroundExecutor = Executors.newSingleThreadExecutor()
 
-    if (!hasPermissions(requireContext())) {
-      requestPermissionLauncher.launch(
-        Manifest.permission.CAMERA
-      )
-    } else {
-      completeCameraSetUpWithPose()
+    // Delay starting until after layout to avoid black preview on some devices
+    fragmentCameraBinding.viewFinder.post {
+      if (!hasPermissions(requireContext())) {
+        requestPermissionLauncher.launch(
+          Manifest.permission.CAMERA
+        )
+      } else {
+        completeCameraSetUpWithPose()
+      }
     }
   }
 
@@ -192,8 +195,14 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     val cameraProvider = cameraProvider
       ?: throw IllegalStateException("Camera initialization failed.")
 
-    val cameraSelector =
-      CameraSelector.Builder().requireLensFacing(cameraFacing).build()
+    // Validate available lens before selecting
+    val hasBack = try { cameraProvider.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) } catch (e: Exception) { false }
+    val hasFront = try { cameraProvider.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) } catch (e: Exception) { false }
+    cameraFacing = when (cameraFacing) {
+      CameraSelector.LENS_FACING_BACK -> if (hasBack) CameraSelector.LENS_FACING_BACK else CameraSelector.LENS_FACING_FRONT
+      else -> if (hasFront) CameraSelector.LENS_FACING_FRONT else CameraSelector.LENS_FACING_BACK
+    }
+    val cameraSelector = CameraSelector.Builder().requireLensFacing(cameraFacing).build()
 
     preview = Preview.Builder().setTargetAspectRatio(AspectRatio.RATIO_4_3)
       .setTargetRotation(fragmentCameraBinding.viewFinder.display.rotation)
@@ -217,8 +226,10 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
       camera = cameraProvider.bindToLifecycle(
         this, cameraSelector, preview, imageAnalyzer
       )
-
-      preview?.setSurfaceProvider(fragmentCameraBinding.viewFinder.surfaceProvider)
+      // Ensure UI thread for setting provider
+      requireActivity().runOnUiThread {
+        preview?.setSurfaceProvider(fragmentCameraBinding.viewFinder.surfaceProvider)
+      }
     } catch (exc: Exception) {
       Log.e(TAG, "Use case binding failed", exc)
     }
@@ -234,10 +245,13 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
   }
 
   fun switchCamera() {
+    val provider = cameraProvider
+    val backAvailable = try { provider?.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) ?: false } catch (_: Exception) { false }
+    val frontAvailable = try { provider?.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) ?: false } catch (_: Exception) { false }
     cameraFacing = if (cameraFacing == CameraSelector.LENS_FACING_BACK) {
-      CameraSelector.LENS_FACING_FRONT
+      if (frontAvailable) CameraSelector.LENS_FACING_FRONT else CameraSelector.LENS_FACING_BACK
     } else {
-      CameraSelector.LENS_FACING_BACK
+      if (backAvailable) CameraSelector.LENS_FACING_BACK else CameraSelector.LENS_FACING_FRONT
     }
     Log.d(
       "CameraFragment",
