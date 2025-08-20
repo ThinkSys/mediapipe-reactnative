@@ -41,6 +41,7 @@ type TsMediapipeProps = {
   model?: 'lite' | 'full' | 'heavy';
   delegate?: 'CPU' | 'GPU';
   eventHz?: number; // throttle onLandmark events per second (iOS)
+  showOverlay?: boolean; // toggle native overlay drawing
 };
 
 type MediapipeComponentProps = TsMediapipeProps & {
@@ -89,6 +90,7 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
     model,
     delegate,
     eventHz,
+    showOverlay = true,
   } = props;
 
   const ref = useRef(null);
@@ -149,6 +151,7 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
         model={model}
         delegate={delegate}
         eventHz={eventHz}
+        showOverlay={showOverlay}
         ref={ref}
       />
     </View>

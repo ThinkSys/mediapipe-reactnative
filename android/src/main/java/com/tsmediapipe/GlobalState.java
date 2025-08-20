@@ -19,4 +19,5 @@ public class GlobalState {
   public static int delegate = PoseLandmarkerHelper.DELEGATE_GPU;
   // 0 means no throttle; otherwise events per second
   public static int eventHz = 0;
+  public static boolean showOverlay = true;
 }

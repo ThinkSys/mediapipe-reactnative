@@ -147,6 +147,14 @@ class CameraView: UIView {
         }
     }
     
+    @objc var showOverlay: NSNumber? {
+        didSet {
+            // 1 = show, 0 = hide
+            let on = (showOverlay?.intValue ?? 1) == 1
+            overlayView?.isHidden = !on
+        }
+    }
+    
     
     @objc var orientation: NSNumber = 0 {
         didSet {
@@ -511,7 +519,7 @@ extension CameraView: PoseLandmarkerServiceLiveStreamDelegate {
                     }
                 }
                 
-                if self!.previewView != nil{
+                if self!.previewView != nil && (self!.showOverlay?.intValue ?? 1) == 1 {
                     let orientaiton =  self!.isPortrait ? UIDevice.current.orientation : UIDeviceOrientation(rawValue: 3)
                     let imageSize = weakSelf.cameraFeedService.videoResolution
                     let poseOverlays = OverlayView().poseOverlays(

@@ -339,30 +339,64 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         )
 
 
-        val gson = Gson()
-        val jsonData = gson.toJson(swiftDict)
-
         val reactContext = ReactContextProvider.reactApplicationContext
         // Optional throttle by eventHz from GlobalState
         val hz = com.tsmediapipe.GlobalState.eventHz
-        var canEmit = true
-        if (hz > 0) {
-          // Compute simple frame-based throttle using input width as proxy for frame index
-          // Alternatively, maintain a timestamp; keeping simple here
-          canEmit = (SystemClock.uptimeMillis() / (1000L / hz)) != 0L
-        }
+        val canEmit = if (hz > 0) {
+          val now = SystemClock.uptimeMillis()
+          val interval = 1000L / hz
+          val last = lastEmitTs
+          if (now - last >= interval) {
+            lastEmitTs = now
+            true
+          } else false
+        } else true
         if (canEmit) {
-          reactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-            ?.emit("onLandmark", jsonData)
+          // Emit as a structured map for parity with iOS
+          val map = com.facebook.react.bridge.Arguments.createMap()
+          val landmarksArray = com.facebook.react.bridge.Arguments.createArray()
+          for (lm in landmarksArray) { /* placeholder to keep structure */ }
+          // Instead of rebuilding from scratch, parse swiftDict with Gson to WritableMap
+          val gson = Gson()
+          val jsonData = gson.toJson(swiftDict)
+          val readable = com.facebook.react.bridge.Arguments.createMap()
+          // Use a small JSON parser to convert string → map
+          try {
+            val jsonObj = org.json.JSONObject(jsonData)
+            val writable = com.facebook.react.bridge.Arguments.createMap()
+            fun putAny(key: String, value: Any?) {
+              when (value) {
+                is Number -> writable.putDouble(key, value.toDouble())
+                is String -> writable.putString(key, value)
+                is Boolean -> writable.putBoolean(key, value)
+                is org.json.JSONObject -> writable.putMap(key, com.facebook.react.bridge.Arguments.makeNativeMap(value))
+                is org.json.JSONArray -> writable.putArray(key, com.facebook.react.bridge.Arguments.makeNativeArray(value))
+                else -> writable.putNull(key)
+              }
+            }
+            val keys = jsonObj.keys()
+            while (keys.hasNext()) {
+              val k = keys.next()
+              putAny(k, jsonObj.get(k))
+            }
+            reactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+              ?.emit("onLandmark", writable)
+          } catch (e: Exception) {
+            // Fallback to string
+            reactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+              ?.emit("onLandmark", jsonData)
+          }
         }
 
-        fragmentCameraBinding.myOverlay.setResults(
-          resultBundle.results.first(),
-          resultBundle.inputImageHeight,
-          resultBundle.inputImageWidth,
-          RunningMode.LIVE_STREAM
-        )
-        fragmentCameraBinding.myOverlay.invalidate()
+        if (com.tsmediapipe.GlobalState.showOverlay) {
+          fragmentCameraBinding.myOverlay.setResults(
+            resultBundle.results.first(),
+            resultBundle.inputImageHeight,
+            resultBundle.inputImageWidth,
+            RunningMode.LIVE_STREAM
+          )
+          fragmentCameraBinding.myOverlay.invalidate()
+        }
       }
     }
   }

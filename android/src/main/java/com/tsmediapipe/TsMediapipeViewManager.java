@@ -171,6 +171,11 @@ public class TsMediapipeViewManager extends ViewGroupManager<FrameLayout> {
     GlobalState.eventHz = eventHz;
   }
 
+  @ReactProp(name = "showOverlay")
+  public void setShowOverlayProp(View view, boolean showOverlay) {
+    GlobalState.showOverlay = showOverlay;
+  }
+
 
   /**
    * Replace your React Native view with a custom fragment
