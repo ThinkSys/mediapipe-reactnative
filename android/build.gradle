@@ -8,7 +8,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:7.2.1"
+    classpath "com.android.tools.build:gradle:8.1.0" // Updated from 7.2.1
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
@@ -64,7 +64,6 @@ android {
   defaultConfig {
     minSdkVersion getExtOrIntegerDefault("minSdkVersion")
     targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
-
   }
 
   buildTypes {
@@ -81,8 +80,14 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
+  
   buildFeatures {
     viewBinding true
+    dataBinding true // Add this line
+  }
+  
+  kotlinOptions {
+    jvmTarget = "1.8"
   }
 }
 
@@ -141,6 +146,9 @@ dependencies {
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
   // MediaPipe Library
-  implementation 'com.google.mediapipe:tasks-vision:0.20230731'
+  implementation 'com.google.mediapipe:tasks-vision:0.20231031'
+  
+  // Add explicit Kotlin coroutines support
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 }
 

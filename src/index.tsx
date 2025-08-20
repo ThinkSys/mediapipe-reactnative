@@ -120,7 +120,7 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
     return () => {
       subscription?.remove();
     };
-  }, []);
+  }, [onLandmark]);
 
   return (
     <View
