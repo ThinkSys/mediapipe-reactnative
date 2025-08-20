@@ -140,7 +140,8 @@ class CameraFeedService: NSObject {
         super.init()
         
         // Initializes the session
-        session.sessionPreset = .hd1280x720
+        // Lower resolution improves FPS; adjust as needed for your use-case
+        session.sessionPreset = .vga640x480
         
         setUpPreviewView(previewView)
         
@@ -362,7 +363,7 @@ class CameraFeedService: NSObject {
      This method tries to add an AVCaptureVideoDataOutput to the current AVCaptureSession.
      */
     private func addVideoDataOutput() -> Bool {
-        let sampleBufferQueue = DispatchQueue(label: "sampleBufferQueue")
+        let sampleBufferQueue = DispatchQueue(label: "sampleBufferQueue", qos: .userInitiated)
         videoDataOutput.setSampleBufferDelegate(self, queue: sampleBufferQueue)
         videoDataOutput.alwaysDiscardsLateVideoFrames = true
         videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCMPixelFormat_32BGRA]
@@ -372,7 +373,8 @@ class CameraFeedService: NSObject {
             if let connection = videoDataOutput.connection(with: .video) {
                 let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
                 
-                self.configureFrameRate(for: videoDevice!, frameRate: 25)
+                // Request higher camera FPS; device will clamp to supported range
+                self.configureFrameRate(for: videoDevice!, frameRate: 30)
                 
                 connection.videoOrientation = isPortrait ? .portrait : .landscapeRight
                 

@@ -143,6 +143,34 @@ public class TsMediapipeViewManager extends ViewGroupManager<FrameLayout> {
     GlobalState.isRightAnkleEnabled = rightAnkle;
   }
 
+  @ReactProp(name = "model")
+  public void setModelProp(View view, @Nullable String model) {
+    if (model == null) return;
+    if ("lite".equalsIgnoreCase(model)) {
+      GlobalState.model = PoseLandmarkerHelper.MODEL_POSE_LANDMARKER_LITE;
+    } else if ("heavy".equalsIgnoreCase(model)) {
+      GlobalState.model = PoseLandmarkerHelper.MODEL_POSE_LANDMARKER_HEAVY;
+    } else if ("full".equalsIgnoreCase(model)) {
+      GlobalState.model = PoseLandmarkerHelper.MODEL_POSE_LANDMARKER_FULL;
+    }
+  }
+
+  @ReactProp(name = "delegate")
+  public void setDelegateProp(View view, @Nullable String delegate) {
+    if (delegate == null) return;
+    if ("GPU".equalsIgnoreCase(delegate)) {
+      GlobalState.delegate = PoseLandmarkerHelper.DELEGATE_GPU;
+    } else if ("CPU".equalsIgnoreCase(delegate)) {
+      GlobalState.delegate = PoseLandmarkerHelper.DELEGATE_CPU;
+    }
+  }
+
+  @ReactProp(name = "eventHz")
+  public void setEventHzProp(View view, @Nullable Integer eventHz) {
+    if (eventHz == null) return;
+    GlobalState.eventHz = eventHz;
+  }
+
 
   /**
    * Replace your React Native view with a custom fragment

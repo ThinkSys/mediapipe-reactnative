@@ -52,6 +52,9 @@ Add these to your project's manifest.
 | `rightLeg`  | Toggles visibility of the right leg in the body model. Affects the data provided by `onLandmark`. |
 | `leftAnkle` | Toggles visibility of the left ankle in the body model. Affects the data provided by `onLandmark`.|
 | `rightAnkle`| Toggles visibility of the right ankle in the body model. Affects the data provided by `onLandmark`.|
+| `model`     | Performance/accuracy trade-off. One of `'lite'`, `'full'`, `'heavy'`. Default `'lite'`.           |
+| `delegate`  | Inference delegate. One of `'CPU'`, `'GPU'`. Default `'GPU'`.                                      |
+| `eventHz`   | Max events per second for `onLandmark` callback. Default platform-dependent throttling.           |
 
 
 ## Usage
@@ -73,6 +76,28 @@ export default function App() {
     )
 }
 ```
+
+### Performance tuning (model, delegate, eventHz)
+
+```tsx
+import { RNMediapipe } from '@thinksys/react-native-mediapipe';
+
+export default function App() {
+  return (
+    <RNMediapipe
+      width={400}
+      height={300}
+      model="lite"        // 'lite' | 'full' | 'heavy'
+      delegate="GPU"       // 'GPU' | 'CPU'
+      eventHz={15}         // throttle JS events (approximate)
+    />
+  );
+}
+```
+
+Notes:
+- iOS uses `GPU` and `lite` by default for higher FPS. Android defaults are the same.
+- `eventHz` reduces JS bridge load by limiting how often `onLandmark` fires. Set to 0/omit for default behavior.
 
 ### Usage with body prop
 

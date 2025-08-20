@@ -121,6 +121,32 @@ class CameraView: UIView {
         }
     }
     
+    // Performance tuning props
+    @objc var model: NSString? {
+        didSet {
+            if let m = model as String? {
+                if m.lowercased() == "lite" { InferenceConfigurationManager.sharedInstance.model = .pose_landmarker_lite }
+                else if m.lowercased() == "full" { InferenceConfigurationManager.sharedInstance.model = .pose_landmarker_full }
+                else if m.lowercased() == "heavy" { InferenceConfigurationManager.sharedInstance.model = .pose_landmarker_heavy }
+            }
+        }
+    }
+    
+    @objc var delegateType: NSString? {
+        didSet {
+            if let d = delegateType as String? {
+                if d.uppercased() == "GPU" { InferenceConfigurationManager.sharedInstance.delegate = .GPU }
+                else if d.uppercased() == "CPU" { InferenceConfigurationManager.sharedInstance.delegate = .CPU }
+            }
+        }
+    }
+    
+    @objc var eventHz: NSNumber? {
+        didSet {
+            // handled in throttling logic below
+        }
+    }
+    
     
     @objc var orientation: NSNumber = 0 {
         didSet {
@@ -338,7 +364,8 @@ extension CameraView: CameraFeedServiceDelegate {
     func didOutput(sampleBuffer: CMSampleBuffer, orientation: UIImage.Orientation, landmarkData:LandmarkData) {
         let currentTimeMs = Date().timeIntervalSince1970 * 1000
         // Pass the pixel buffer to mediapipe
-        backgroundQueue.async { [weak self] in
+        // Keep detection work prioritized but off the main thread
+        backgroundQueue.async(qos: .userInitiated) { [weak self] in
             self?.poseLandmarkerService?.detectAsync(
                 sampleBuffer: sampleBuffer,
                 orientation: orientation,
@@ -408,7 +435,11 @@ extension CameraView: PoseLandmarkerServiceLiveStreamDelegate {
                 guard let weakSelf = self else { return }
                 //   weakSelf.inferenceResultDeliveryDelegate?.didPerformInference(result: result)
                 guard let poseLandmarkerResult = result?.poseLandmarkerResults.first as? PoseLandmarkerResult else { return }
-                let limit = ((self?.landmarkData.frameRate)!)/6
+                // Throttle: emit events at requested Hz if provided; else fallback to frameRate/6
+                var limit = ((self?.landmarkData.frameRate)!)/6
+                if let hz = self?.eventHz?.doubleValue, hz > 0 {
+                    limit = ((self?.landmarkData.frameRate)!)/hz
+                }
                 
                 self!.frameCount =  self!.frameCount+1;
                 if(self!.frameCount > Int(limit)){

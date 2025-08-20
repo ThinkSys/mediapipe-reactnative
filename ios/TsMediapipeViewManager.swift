@@ -17,6 +17,8 @@ class TsMediapipeViewManager: RCTViewManager {
     @objc func switchCamera() {
         cameraView.switchCamera()
     }
-    
-    
+
+    @objc override func constantsToExport() -> [AnyHashable : Any]! {
+        return [:]
+    }
 }

@@ -90,6 +90,14 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
     // Create the PoseLandmarkerHelper that will handle the inference
     backgroundExecutor.execute {
+      // Use global overrides if provided from JS props
+      val delegateOverride = com.tsmediapipe.GlobalState.delegate
+      val modelOverride = com.tsmediapipe.GlobalState.model
+
+      // Reflect overrides into viewModel used to build helper
+      viewModel.setDelegate(delegateOverride)
+      viewModel.setModel(modelOverride)
+
       poseLandmarkerHelper = PoseLandmarkerHelper(
         context = requireContext(),
         runningMode = RunningMode.LIVE_STREAM,
@@ -209,14 +217,21 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
       .build()
 
     imageAnalyzer =
-      ImageAnalysis.Builder().setTargetAspectRatio(AspectRatio.RATIO_4_3)
+      ImageAnalysis.Builder()
+        .setTargetAspectRatio(AspectRatio.RATIO_4_3)
         .setTargetRotation(fragmentCameraBinding.viewFinder.display.rotation)
         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+        .setImageQueueDepth(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
         .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
         .build()
         .also {
           it.setAnalyzer(backgroundExecutor) { image ->
-            detectPose(image)
+            try {
+              detectPose(image)
+            } finally {
+              // Ensure image is closed promptly to avoid analyzer stalls
+              if (!image.isClosed) image.close()
+            }
           }
         }
 
@@ -328,8 +343,18 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         val jsonData = gson.toJson(swiftDict)
 
         val reactContext = ReactContextProvider.reactApplicationContext
-        reactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-          ?.emit("onLandmark", jsonData)
+        // Optional throttle by eventHz from GlobalState
+        val hz = com.tsmediapipe.GlobalState.eventHz
+        var canEmit = true
+        if (hz > 0) {
+          // Compute simple frame-based throttle using input width as proxy for frame index
+          // Alternatively, maintain a timestamp; keeping simple here
+          canEmit = (SystemClock.uptimeMillis() / (1000L / hz)) != 0L
+        }
+        if (canEmit) {
+          reactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+            ?.emit("onLandmark", jsonData)
+        }
 
         fragmentCameraBinding.myOverlay.setResults(
           resultBundle.results.first(),
