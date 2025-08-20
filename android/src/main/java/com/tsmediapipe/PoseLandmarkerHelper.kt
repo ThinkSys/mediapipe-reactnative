@@ -150,7 +150,6 @@ class PoseLandmarkerHelper(
       )
 
     imageProxy.use { bitmapBuffer.copyPixelsFromBuffer(imageProxy.planes[0].buffer) }
-    imageProxy.close()
 
     val matrix = Matrix().apply {
       // Rotate the frame received from the camera to be in the same direction as it'll be shown
@@ -168,13 +167,14 @@ class PoseLandmarkerHelper(
     }
     val rotatedBitmap = Bitmap.createBitmap(
       bitmapBuffer, 0, 0, bitmapBuffer.width, bitmapBuffer.height,
-      matrix, true
+      matrix, false
     )
 
     // Convert the input Bitmap object to an MPImage object to run inference
     val mpImage = BitmapImageBuilder(rotatedBitmap).build()
 
     detectAsync(mpImage, frameTime)
+    // Free up the camera buffer ASAP; analyzer will handle closing in caller
   }
 
   // Run pose landmark using MediaPipe Pose Landmarker API

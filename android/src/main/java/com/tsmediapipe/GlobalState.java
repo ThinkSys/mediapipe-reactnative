@@ -13,4 +13,11 @@ public class GlobalState {
   public static boolean isRightAnkleEnabled = false;
 
   public static String orientation = "portrait";
+
+  // Performance/configuration
+  public static int model = PoseLandmarkerHelper.MODEL_POSE_LANDMARKER_LITE;
+  public static int delegate = PoseLandmarkerHelper.DELEGATE_GPU;
+  // 0 means no throttle; otherwise events per second
+  public static int eventHz = 0;
+  public static boolean showOverlay = true;
 }

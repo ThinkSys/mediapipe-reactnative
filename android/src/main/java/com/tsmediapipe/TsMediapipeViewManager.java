@@ -143,20 +143,62 @@ public class TsMediapipeViewManager extends ViewGroupManager<FrameLayout> {
     GlobalState.isRightAnkleEnabled = rightAnkle;
   }
 
+  @ReactProp(name = "model")
+  public void setModelProp(View view, @Nullable String model) {
+    if (model == null) return;
+    if ("lite".equalsIgnoreCase(model)) {
+      GlobalState.model = PoseLandmarkerHelper.MODEL_POSE_LANDMARKER_LITE;
+    } else if ("heavy".equalsIgnoreCase(model)) {
+      GlobalState.model = PoseLandmarkerHelper.MODEL_POSE_LANDMARKER_HEAVY;
+    } else if ("full".equalsIgnoreCase(model)) {
+      GlobalState.model = PoseLandmarkerHelper.MODEL_POSE_LANDMARKER_FULL;
+    }
+  }
+
+  @ReactProp(name = "delegate")
+  public void setDelegateProp(View view, @Nullable String delegate) {
+    if (delegate == null) return;
+    if ("GPU".equalsIgnoreCase(delegate)) {
+      GlobalState.delegate = PoseLandmarkerHelper.DELEGATE_GPU;
+    } else if ("CPU".equalsIgnoreCase(delegate)) {
+      GlobalState.delegate = PoseLandmarkerHelper.DELEGATE_CPU;
+    }
+  }
+
+  @ReactProp(name = "eventHz")
+  public void setEventHzProp(View view, @Nullable Integer eventHz) {
+    if (eventHz == null) return;
+    GlobalState.eventHz = eventHz;
+  }
+
+  @ReactProp(name = "showOverlay")
+  public void setShowOverlayProp(View view, boolean showOverlay) {
+    GlobalState.showOverlay = showOverlay;
+  }
+
 
   /**
    * Replace your React Native view with a custom fragment
    */
   public void createFragment(FrameLayout root, int reactNativeViewId) {
-    ViewGroup parentView = (ViewGroup) root.findViewById(reactNativeViewId);//reactNativeViewId
-    setupLayout(parentView);
+    // Ensure the native container view has a valid ID to host the Fragment
+    root.setId(reactNativeViewId);
+    setupLayout(root);
 
     final CameraFragment myFragment = new CameraFragment();
     FragmentActivity activity = (FragmentActivity) reactContext.getCurrentActivity();
-    activity.getSupportFragmentManager()
-      .beginTransaction()
-      .replace(reactNativeViewId, myFragment, String.valueOf(reactNativeViewId))
-      .commit();
+    if (activity == null) {
+      return;
+    }
+    activity.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        activity.getSupportFragmentManager()
+          .beginTransaction()
+          .replace(reactNativeViewId, myFragment, String.valueOf(reactNativeViewId))
+          .commitAllowingStateLoss();
+      }
+    });
   }
 
   public void setupLayout(View view) {

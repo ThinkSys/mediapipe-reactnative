@@ -90,6 +90,14 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
 
     // Create the PoseLandmarkerHelper that will handle the inference
     backgroundExecutor.execute {
+      // Use global overrides if provided from JS props
+      val delegateOverride = com.tsmediapipe.GlobalState.delegate
+      val modelOverride = com.tsmediapipe.GlobalState.model
+
+      // Reflect overrides into viewModel used to build helper
+      viewModel.setDelegate(delegateOverride)
+      viewModel.setModel(modelOverride)
+
       poseLandmarkerHelper = PoseLandmarkerHelper(
         context = requireContext(),
         runningMode = RunningMode.LIVE_STREAM,
@@ -167,12 +175,15 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     // Initialize our background executor
     backgroundExecutor = Executors.newSingleThreadExecutor()
 
-    if (!hasPermissions(requireContext())) {
-      requestPermissionLauncher.launch(
-        Manifest.permission.CAMERA
-      )
-    } else {
-      completeCameraSetUpWithPose()
+    // Delay starting until after layout to avoid black preview on some devices
+    fragmentCameraBinding.viewFinder.post {
+      if (!hasPermissions(requireContext())) {
+        requestPermissionLauncher.launch(
+          Manifest.permission.CAMERA
+        )
+      } else {
+        completeCameraSetUpWithPose()
+      }
     }
   }
 
@@ -192,22 +203,35 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     val cameraProvider = cameraProvider
       ?: throw IllegalStateException("Camera initialization failed.")
 
-    val cameraSelector =
-      CameraSelector.Builder().requireLensFacing(cameraFacing).build()
+    // Validate available lens before selecting
+    val hasBack = try { cameraProvider.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) } catch (e: Exception) { false }
+    val hasFront = try { cameraProvider.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) } catch (e: Exception) { false }
+    cameraFacing = when (cameraFacing) {
+      CameraSelector.LENS_FACING_BACK -> if (hasBack) CameraSelector.LENS_FACING_BACK else CameraSelector.LENS_FACING_FRONT
+      else -> if (hasFront) CameraSelector.LENS_FACING_FRONT else CameraSelector.LENS_FACING_BACK
+    }
+    val cameraSelector = CameraSelector.Builder().requireLensFacing(cameraFacing).build()
 
     preview = Preview.Builder().setTargetAspectRatio(AspectRatio.RATIO_4_3)
       .setTargetRotation(fragmentCameraBinding.viewFinder.display.rotation)
       .build()
 
     imageAnalyzer =
-      ImageAnalysis.Builder().setTargetAspectRatio(AspectRatio.RATIO_4_3)
+      ImageAnalysis.Builder()
+        .setTargetAspectRatio(AspectRatio.RATIO_4_3)
         .setTargetRotation(fragmentCameraBinding.viewFinder.display.rotation)
         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+        .setImageQueueDepth(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
         .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
         .build()
         .also {
           it.setAnalyzer(backgroundExecutor) { image ->
-            detectPose(image)
+            try {
+              detectPose(image)
+            } finally {
+              // Ensure image is closed promptly to avoid analyzer stalls
+              if (!image.isClosed) image.close()
+            }
           }
         }
 
@@ -217,8 +241,10 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
       camera = cameraProvider.bindToLifecycle(
         this, cameraSelector, preview, imageAnalyzer
       )
-
-      preview?.setSurfaceProvider(fragmentCameraBinding.viewFinder.surfaceProvider)
+      // Ensure UI thread for setting provider
+      requireActivity().runOnUiThread {
+        preview?.setSurfaceProvider(fragmentCameraBinding.viewFinder.surfaceProvider)
+      }
     } catch (exc: Exception) {
       Log.e(TAG, "Use case binding failed", exc)
     }
@@ -234,10 +260,13 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
   }
 
   fun switchCamera() {
+    val provider = cameraProvider
+    val backAvailable = try { provider?.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) ?: false } catch (_: Exception) { false }
+    val frontAvailable = try { provider?.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) ?: false } catch (_: Exception) { false }
     cameraFacing = if (cameraFacing == CameraSelector.LENS_FACING_BACK) {
-      CameraSelector.LENS_FACING_FRONT
+      if (frontAvailable) CameraSelector.LENS_FACING_FRONT else CameraSelector.LENS_FACING_BACK
     } else {
-      CameraSelector.LENS_FACING_BACK
+      if (backAvailable) CameraSelector.LENS_FACING_BACK else CameraSelector.LENS_FACING_FRONT
     }
     Log.d(
       "CameraFragment",
@@ -310,20 +339,64 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         )
 
 
-        val gson = Gson()
-        val jsonData = gson.toJson(swiftDict)
-
         val reactContext = ReactContextProvider.reactApplicationContext
-        reactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-          ?.emit("onLandmark", jsonData)
+        // Optional throttle by eventHz from GlobalState
+        val hz = com.tsmediapipe.GlobalState.eventHz
+        val canEmit = if (hz > 0) {
+          val now = SystemClock.uptimeMillis()
+          val interval = 1000L / hz
+          val last = lastEmitTs
+          if (now - last >= interval) {
+            lastEmitTs = now
+            true
+          } else false
+        } else true
+        if (canEmit) {
+          // Emit as a structured map for parity with iOS
+          val map = com.facebook.react.bridge.Arguments.createMap()
+          val landmarksArray = com.facebook.react.bridge.Arguments.createArray()
+          for (lm in landmarksArray) { /* placeholder to keep structure */ }
+          // Instead of rebuilding from scratch, parse swiftDict with Gson to WritableMap
+          val gson = Gson()
+          val jsonData = gson.toJson(swiftDict)
+          val readable = com.facebook.react.bridge.Arguments.createMap()
+          // Use a small JSON parser to convert string → map
+          try {
+            val jsonObj = org.json.JSONObject(jsonData)
+            val writable = com.facebook.react.bridge.Arguments.createMap()
+            fun putAny(key: String, value: Any?) {
+              when (value) {
+                is Number -> writable.putDouble(key, value.toDouble())
+                is String -> writable.putString(key, value)
+                is Boolean -> writable.putBoolean(key, value)
+                is org.json.JSONObject -> writable.putMap(key, com.facebook.react.bridge.Arguments.makeNativeMap(value))
+                is org.json.JSONArray -> writable.putArray(key, com.facebook.react.bridge.Arguments.makeNativeArray(value))
+                else -> writable.putNull(key)
+              }
+            }
+            val keys = jsonObj.keys()
+            while (keys.hasNext()) {
+              val k = keys.next()
+              putAny(k, jsonObj.get(k))
+            }
+            reactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+              ?.emit("onLandmark", writable)
+          } catch (e: Exception) {
+            // Fallback to string
+            reactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+              ?.emit("onLandmark", jsonData)
+          }
+        }
 
-        fragmentCameraBinding.myOverlay.setResults(
-          resultBundle.results.first(),
-          resultBundle.inputImageHeight,
-          resultBundle.inputImageWidth,
-          RunningMode.LIVE_STREAM
-        )
-        fragmentCameraBinding.myOverlay.invalidate()
+        if (com.tsmediapipe.GlobalState.showOverlay) {
+          fragmentCameraBinding.myOverlay.setResults(
+            resultBundle.results.first(),
+            resultBundle.inputImageHeight,
+            resultBundle.inputImageWidth,
+            RunningMode.LIVE_STREAM
+          )
+          fragmentCameraBinding.myOverlay.invalidate()
+        }
       }
     }
   }

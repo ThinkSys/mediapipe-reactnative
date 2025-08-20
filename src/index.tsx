@@ -37,6 +37,11 @@ type TsMediapipeProps = {
   height?: number;
   width?: number;
   poseStarted?: number;
+  // New performance tuning props
+  model?: 'lite' | 'full' | 'heavy';
+  delegate?: 'CPU' | 'GPU';
+  eventHz?: number; // throttle onLandmark events per second (iOS)
+  showOverlay?: boolean; // toggle native overlay drawing
 };
 
 type MediapipeComponentProps = TsMediapipeProps & {
@@ -82,6 +87,10 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
     rightLeg = true,
     leftAnkle = true,
     rightAnkle = true,
+    model,
+    delegate,
+    eventHz,
+    showOverlay = true,
   } = props;
 
   const ref = useRef(null);
@@ -138,6 +147,11 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
         rightLeg={rightLeg}
         leftAnkle={leftAnkle}
         rightAnkle={rightAnkle}
+        // pass-through config props
+        model={model}
+        delegate={delegate}
+        eventHz={eventHz}
+        showOverlay={showOverlay}
         ref={ref}
       />
     </View>
