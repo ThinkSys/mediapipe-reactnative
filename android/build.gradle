@@ -97,20 +97,20 @@ dependencies {
   // For < 0.71, this will be from the local maven repo
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
 
-  implementation 'com.google.code.gson:gson:2.11.0'
+  implementation 'com.google.code.gson:gson:2.13.1'
 
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-android:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
   // Kotlin lang
-  implementation 'androidx.core:core-ktx:1.8.0'
+  implementation 'androidx.core:core-ktx:1.12.0'
 
   // App compat and UI things
-  implementation 'androidx.appcompat:appcompat:1.5.1'
-  implementation 'com.google.android.material:material:1.7.0'
+  implementation 'androidx.appcompat:appcompat:1.6.1'
+  implementation 'com.google.android.material:material:1.11.0'
   implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-  implementation 'androidx.fragment:fragment-ktx:1.5.4'
+  implementation 'androidx.fragment:fragment-ktx:1.6.2'
 
   // Navigation library
   def nav_version = "2.5.3"
@@ -118,7 +118,7 @@ dependencies {
   implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
   // CameraX core library
-  def camerax_version = '1.2.0-alpha02'
+  def camerax_version = '1.2.3'
   implementation "androidx.camera:camera-core:$camerax_version"
 
   // CameraX Camera2 extensions
@@ -131,16 +131,16 @@ dependencies {
   implementation "androidx.camera:camera-view:$camerax_version"
 
   // WindowManager
-  implementation 'androidx.window:window:1.1.0-alpha03'
+  implementation 'androidx.window:window:1.1.0'
 
   // Unit testing
   testImplementation 'junit:junit:4.13.2'
 
   // Instrumented testing
-  androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+  androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
   // MediaPipe Library
-  implementation 'com.google.mediapipe:tasks-vision:0.20230731'
-}
+  implementation 'com.google.mediapipe:tasks-vision:0.10.15'
 
+}
