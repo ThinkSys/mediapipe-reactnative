@@ -8,7 +8,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:8.1.0" // Updated from 7.2.1
+    classpath "com.android.tools.build:gradle:8.8.2"
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
@@ -48,14 +48,12 @@ def supportsNamespace() {
 }
 
 android {
-  if (supportsNamespace()) {
-    namespace "com.tsmediapipe"
+  namespace "com.tsmediapipe"
 
-    sourceSets {
-      main {
-        manifest.srcFile "src/main/AndroidManifestNew.xml"
-        assets.srcDirs = ['src/main/assets']
-      }
+  sourceSets {
+    main {
+      manifest.srcFile "src/main/AndroidManifestNew.xml"
+      assets.srcDirs = ['src/main/assets']
     }
   }
 
@@ -109,21 +107,21 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
   // Kotlin lang
-  implementation 'androidx.core:core-ktx:1.8.0'
+  implementation 'androidx.core:core-ktx:1.12.0'
 
   // App compat and UI things
-  implementation 'androidx.appcompat:appcompat:1.5.1'
-  implementation 'com.google.android.material:material:1.7.0'
+  implementation 'androidx.appcompat:appcompat:1.6.1'
+  implementation 'com.google.android.material:material:1.11.0'
   implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-  implementation 'androidx.fragment:fragment-ktx:1.5.4'
+  implementation 'androidx.fragment:fragment-ktx:1.6.2'
 
   // Navigation library
-  def nav_version = "2.5.3"
+  def nav_version = "2.7.5"
   implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
   implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
   // CameraX core library (keep all CameraX artifacts aligned)
-  def camerax_version = '1.3.4'
+  def camerax_version = '1.3.1'
   implementation "androidx.camera:camera-core:$camerax_version"
 
   // CameraX Camera2 extensions
@@ -146,9 +144,9 @@ dependencies {
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
   // MediaPipe Library
-  implementation 'com.google.mediapipe:tasks-vision:0.20231031'
+  implementation 'com.google.mediapipe:tasks-vision:0.20230731'
   
   // Add explicit Kotlin coroutines support
-  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
 }
 
