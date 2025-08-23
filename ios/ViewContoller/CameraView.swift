@@ -120,6 +120,9 @@ class CameraView: UIView {
             updateBodyTrack()
         }
     }
+
+  @objc var frameLimit: NSNumber = DefaultConstants.FRAME_LIMIT
+    
     
     
     @objc var orientation: NSNumber = 0 {
@@ -213,6 +216,7 @@ class CameraView: UIView {
         
         
         cameraFeedService.poseStarted(started: self.poseStart)
+        cameraFeedService.setFrameLimit(limit: frameLimit)
         
         cameraFeedService.setOrientation(isPortrait: self.isPortrait)
         cameraFeedService.startLiveCameraSession {[weak self] cameraConfiguration in
@@ -408,10 +412,10 @@ extension CameraView: PoseLandmarkerServiceLiveStreamDelegate {
                 guard let weakSelf = self else { return }
                 //   weakSelf.inferenceResultDeliveryDelegate?.didPerformInference(result: result)
                 guard let poseLandmarkerResult = result?.poseLandmarkerResults.first as? PoseLandmarkerResult else { return }
-                let limit = ((self?.landmarkData.frameRate)!)/6
+              //  let limit = ((self?.landmarkData.frameRate)!)/6
                 
-                self!.frameCount =  self!.frameCount+1;
-                if(self!.frameCount > Int(limit)){
+             //   self!.frameCount =  self!.frameCount+1;
+             //   if(self!.frameCount > Int(limit)){
                     self!.frameCount = 0
                     var results = poseLandmarkerResult.landmarks.first
                     var worldLandmarks = poseLandmarkerResult.worldLandmarks.first
@@ -478,7 +482,7 @@ extension CameraView: PoseLandmarkerServiceLiveStreamDelegate {
                         // Handle the case where `results` is nil
                         //                print("No landmarks found")
                     }
-                }
+              //  }
                 
                 if self!.previewView != nil{
                     let orientaiton =  self!.isPortrait ? UIDevice.current.orientation : UIDeviceOrientation(rawValue: 3)

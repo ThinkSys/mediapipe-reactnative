@@ -132,6 +132,7 @@ class CameraFeedService: NSObject {
     var poseCount:Double = 0
     private var isPoseStarted: Bool =  true
     private var isPortrait: Bool = true
+    private var frameLimit: NSNumber =  DefaultConstants.FRAME_LIMIT
     //  var lastProcessedTimestamp: CMTime = CMTime.zero
     //  let processingInterval: Double = 0.05 // Adjust as needed, represents the desired interval between processing in seconds
     
@@ -227,6 +228,10 @@ class CameraFeedService: NSObject {
         self.isPoseStarted = started
     }
     
+  func setFrameLimit(limit: NSNumber) {
+      self.frameLimit = limit
+  }
+  
     private func configureFrameRate(for device: AVCaptureDevice, frameRate: Int) {
         do {
             try device.lockForConfiguration()
@@ -372,7 +377,7 @@ class CameraFeedService: NSObject {
             if let connection = videoDataOutput.connection(with: .video) {
                 let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
                 
-                self.configureFrameRate(for: videoDevice!, frameRate: 25)
+              self.configureFrameRate(for: videoDevice!, frameRate: Int(truncating: self.frameLimit))
                 
                 connection.videoOrientation = isPortrait ? .portrait : .landscapeRight
                 

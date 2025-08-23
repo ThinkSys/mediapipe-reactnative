@@ -37,6 +37,7 @@ type TsMediapipeProps = {
   height?: number;
   width?: number;
   poseStarted?: number;
+  frameLimit?: number; // ios only(set the frame rate during initialization)
 };
 
 type MediapipeComponentProps = TsMediapipeProps & {
@@ -82,8 +83,8 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
     rightLeg = true,
     leftAnkle = true,
     rightAnkle = true,
+    frameLimit = 20, // ios only(set the frame rate during initialization)
   } = props;
-
   const ref = useRef(null);
 
   useEffect(() => {
@@ -125,7 +126,9 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
       ]}
     >
       <TsMediapipe
-        height={isAndroid ? PixelRatio.getPixelSizeForLayoutSize(height) : height}
+        height={
+          isAndroid ? PixelRatio.getPixelSizeForLayoutSize(height) : height
+        }
         width={isAndroid ? PixelRatio.getPixelSizeForLayoutSize(width) : width}
         onLandmark={bodyLandmark}
         face={face}
@@ -139,6 +142,7 @@ const TsMediapipeView: React.FC<MediapipeComponentProps> = (props) => {
         leftAnkle={leftAnkle}
         rightAnkle={rightAnkle}
         ref={ref}
+        frameLimit={frameLimit} // ios only(set the frame rate during initialization)
       />
     </View>
   );
