@@ -42,6 +42,7 @@ Add these to your project's manifest.
 | `width`     | Sets the camera view width.                                                                      |
 | `height`    | Sets the camera view height.                                                                     |
 | `onLandmark`| Callback function to retrieve body landmark data.                                                |
+| `frameLimit`| set the frame rate during initialization(ios only).                                              |
 | `face`      | Toggles visibility of the face in the body model. Affects the data provided by `onLandmark`.      |
 | `leftArm`   | Toggles visibility of the left arm in the body model. Affects the data provided by `onLandmark`.  |
 | `rightArm`  | Toggles visibility of the right arm in the body model. Affects the data provided by `onLandmark`. |
