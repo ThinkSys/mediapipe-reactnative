@@ -37,6 +37,7 @@ export default function App() {
         rightLeg={true}
         leftAnkle={true}
         rightAnkle={true}
+        frameLimit={25} // ios only(set the frame rate during initialization)
       />
       <TouchableOpacity onPress={onFlip} style={styles.btnView}>
         <Text style={styles.btnTxt}>Switch Camera</Text>

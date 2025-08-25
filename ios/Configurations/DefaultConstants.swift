@@ -21,6 +21,7 @@ struct DefaultConstants {
     
     static let HEIGHT: Int = 1280
     static let WIDTH: Int = 720
+    static let FRAME_LIMIT: NSNumber = 20
 }
 
 // MARK: Model
