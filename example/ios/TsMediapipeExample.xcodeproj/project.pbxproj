@@ -7,12 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* TsMediapipeExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TsMediapipeExampleTests.m */; };
-		0F6FEA064CA0A5260476FDA7 /* libPods-TsMediapipeExample-TsMediapipeExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A6B34223707ECD83521B0C /* libPods-TsMediapipeExample-TsMediapipeExampleTests.a */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3F8646543F4C1E39E26FB180 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C02057D1CF84E577C04DBDDD /* PrivacyInfo.xcprivacy */; };
+		78A452A42E99547300BECEE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A452A32E99547300BECEE5 /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C45097B56273FEB6C0A158AD /* libPods-TsMediapipeExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CA40ED73C69C76B06E3B695 /* libPods-TsMediapipeExample.a */; };
 /* End PBXBuildFile section */
@@ -30,21 +27,15 @@
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* TsMediapipeExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TsMediapipeExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* TsMediapipeExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TsMediapipeExampleTests.m; sourceTree = "<group>"; };
 		0E06739F9E81AA3DFE2DE2F7 /* Pods-TsMediapipeExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TsMediapipeExample.debug.xcconfig"; path = "Target Support Files/Pods-TsMediapipeExample/Pods-TsMediapipeExample.debug.xcconfig"; sourceTree = "<group>"; };
-		13160C46779284FBC2FFC7BC /* Pods-TsMediapipeExample-TsMediapipeExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TsMediapipeExample-TsMediapipeExampleTests.release.xcconfig"; path = "Target Support Files/Pods-TsMediapipeExample-TsMediapipeExampleTests/Pods-TsMediapipeExample-TsMediapipeExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TsMediapipeExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TsMediapipeExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TsMediapipeExample/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = TsMediapipeExample/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TsMediapipeExample/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TsMediapipeExample/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TsMediapipeExample/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = TsMediapipeExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		66978E37EAD5F725EFDABA8A /* Pods-TsMediapipeExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TsMediapipeExample.release.xcconfig"; path = "Target Support Files/Pods-TsMediapipeExample/Pods-TsMediapipeExample.release.xcconfig"; sourceTree = "<group>"; };
 		6CA40ED73C69C76B06E3B695 /* libPods-TsMediapipeExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TsMediapipeExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B86FCD94B2749CF53C0BA55 /* Pods-TsMediapipeExample-TsMediapipeExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TsMediapipeExample-TsMediapipeExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-TsMediapipeExample-TsMediapipeExampleTests/Pods-TsMediapipeExample-TsMediapipeExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		78A452A22E99547200BECEE5 /* TsMediapipeExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TsMediapipeExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		78A452A32E99547300BECEE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TsMediapipeExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		99A6B34223707ECD83521B0C /* libPods-TsMediapipeExample-TsMediapipeExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TsMediapipeExample-TsMediapipeExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C02057D1CF84E577C04DBDDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = TsMediapipeExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -54,7 +45,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F6FEA064CA0A5260476FDA7 /* libPods-TsMediapipeExample-TsMediapipeExampleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,7 +62,6 @@
 		00E356EF1AD99517003FC87E /* TsMediapipeExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* TsMediapipeExampleTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
 			path = TsMediapipeExampleTests;
@@ -89,14 +78,12 @@
 		13B07FAE1A68108700A75B9A /* TsMediapipeExample */ = {
 			isa = PBXGroup;
 			children = (
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
-				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 				C02057D1CF84E577C04DBDDD /* PrivacyInfo.xcprivacy */,
+				78A452A32E99547300BECEE5 /* AppDelegate.swift */,
+				78A452A22E99547200BECEE5 /* TsMediapipeExample-Bridging-Header.h */,
 			);
 			name = TsMediapipeExample;
 			sourceTree = "<group>";
@@ -106,7 +93,6 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				6CA40ED73C69C76B06E3B695 /* libPods-TsMediapipeExample.a */,
-				99A6B34223707ECD83521B0C /* libPods-TsMediapipeExample-TsMediapipeExampleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -147,8 +133,6 @@
 			children = (
 				0E06739F9E81AA3DFE2DE2F7 /* Pods-TsMediapipeExample.debug.xcconfig */,
 				66978E37EAD5F725EFDABA8A /* Pods-TsMediapipeExample.release.xcconfig */,
-				7B86FCD94B2749CF53C0BA55 /* Pods-TsMediapipeExample-TsMediapipeExampleTests.debug.xcconfig */,
-				13160C46779284FBC2FFC7BC /* Pods-TsMediapipeExample-TsMediapipeExampleTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -160,12 +144,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "TsMediapipeExampleTests" */;
 			buildPhases = (
-				BBC8F45A8359DE8C447639AE /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				D3143A42F8A82DA3F3AA03B4 /* [CP] Embed Pods Frameworks */,
-				D8AA9E5FDA08547148E28EE9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -211,7 +192,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1640;
 					};
 				};
 			};
@@ -279,9 +260,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TsMediapipeExample/Pods-TsMediapipeExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TsMediapipeExample/Pods-TsMediapipeExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -318,69 +303,17 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TsMediapipeExample/Pods-TsMediapipeExample-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TsMediapipeExample/Pods-TsMediapipeExample-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TsMediapipeExample/Pods-TsMediapipeExample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BBC8F45A8359DE8C447639AE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TsMediapipeExample-TsMediapipeExampleTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D3143A42F8A82DA3F3AA03B4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TsMediapipeExample-TsMediapipeExampleTests/Pods-TsMediapipeExample-TsMediapipeExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TsMediapipeExample-TsMediapipeExampleTests/Pods-TsMediapipeExample-TsMediapipeExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TsMediapipeExample-TsMediapipeExampleTests/Pods-TsMediapipeExample-TsMediapipeExampleTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D8AA9E5FDA08547148E28EE9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TsMediapipeExample-TsMediapipeExampleTests/Pods-TsMediapipeExample-TsMediapipeExampleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TsMediapipeExample-TsMediapipeExampleTests/Pods-TsMediapipeExample-TsMediapipeExampleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TsMediapipeExample-TsMediapipeExampleTests/Pods-TsMediapipeExample-TsMediapipeExampleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -390,7 +323,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* TsMediapipeExampleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,8 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
-				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				78A452A42E99547300BECEE5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,7 +347,6 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B86FCD94B2749CF53C0BA55 /* Pods-TsMediapipeExample-TsMediapipeExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -443,7 +373,6 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13160C46779284FBC2FFC7BC /* Pods-TsMediapipeExample-TsMediapipeExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -505,7 +434,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7MW6J2J2M6;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3TCD6ERDJF;
 				INFOPLIST_FILE = TsMediapipeExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -598,12 +528,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				USE_HERMES = true;
 			};
 			name = Debug;
@@ -673,10 +601,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
