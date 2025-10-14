@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  TsMediapipeExample
-//
-//  Created by Tushar   on 10/10/25.
-//
-
 import UIKit
 import React
 import React_RCTAppDelegate
