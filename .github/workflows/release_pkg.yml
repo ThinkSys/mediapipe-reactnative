@@ -3,7 +3,7 @@ name: Node.js Package
 on:
     push:
       branches:
-        - main 
+        -  fix/pipeline-npm-version
 
 jobs:
   build:
@@ -24,12 +24,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20.15.1
-          registry-url: https://registry.npmjs.org/
+          # registry-url: https://registry.npmjs.org/
+          registary-url: https://www.npmjs.com/
       # Step 3: Bump version (incrementing the patch)
       - name: Bump version
         run: |
           # Extract current version
-          current_version=$(npm view @thinksys/react-native-mediapipe version)
+          current_version=$(npm view @thinksys-npm/react-native-mediapipe version)
           
           # Split version into components
           major=$(echo $current_version | cut -d. -f1)
