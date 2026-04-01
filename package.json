@@ -1,5 +1,5 @@
 {
-  "name": "@thinksys/react-native-mediapipe",
+  "name": "@thinksys-npm/react-native-mediapipe",
   "version": "0.0.12",
   "description": "ThinkSys MediaPipe package for React Native",
   "main": "lib/commonjs/index",
@@ -50,7 +50,7 @@
   },
   "homepage": "https://github.com/ThinkSys/mediapipe-reactnative#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://www.npmjs.com/"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
