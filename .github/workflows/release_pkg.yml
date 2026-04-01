@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: 20.15.1
           # registry-url: https://registry.npmjs.org/
-          registary-url: https://www.npmjs.com/
+          registry-url: https://www.npmjs.com/
       # Step 3: Bump version (incrementing the patch)
       - name: Bump version
         run: |
