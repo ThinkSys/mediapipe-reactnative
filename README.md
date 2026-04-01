@@ -23,8 +23,18 @@ npm install @thinksys/react-native-mediapipe
     <key>NSCameraUsageDescription</key>
 	<string>This app uses camera to get pose landmarks that appear in the camera feed.</string>
     ```
-   
-2. Run ```cd ios && pod install```
+
+2. Add the CocoaPods CDN source at the top of your `ios/Podfile`:
+    ```ruby
+    source 'https://cdn.cocoapods.org/'
+    ```
+
+3. Run ```cd ios && pod install```
+
+> **Note:** The `MediaPipeTasksVision` dependency is pinned to version `0.10.14` in this library. If `pod search MediaPipeTasksVision` returns no results, that is expected — the pod resolves via the CDN source above. To update the version, override it in your Podfile:
+> ```ruby
+> pod 'MediaPipeTasksVision', '0.10.14'
+> ```
 
 
 ## Android setup
